@@ -1,13 +1,13 @@
 class MovableObject {
   //Superklasse für alle bewegten Objekte; n Klassen braucht man weder let noch function
-  x = 120;
+  x = 100;
   y = 125;
   img;
   height = 300;
   width = 150;
   imageCache = {};
   currentImage = 0;
-  speed = 0.15;
+  speed = 0.5;
   otherDirection = false;
 
 

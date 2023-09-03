@@ -1,20 +1,12 @@
 class World {
   character = new Character(); //verweist auf Klasse Character
-  enemies = [
-    new Chicken(), // verweist auf Klasse Chicken
-    new Chicken(),
-    new Chicken(),
-  ];
-  clouds = [new Cloud()];
-  backgroundObjects = [
-    new BackgroundObjects("img/5_background/layers/air.png", 0),
-    new BackgroundObjects("img/5_background/layers/3_third_layer/1.png", 0),
-    new BackgroundObjects("img/5_background/layers/2_second_layer/1.png", 0),
-    new BackgroundObjects("img/5_background/layers/1_first_layer/1.png", 0),
-  ];
+  enemies = level1.enemies; //verweist auf das JSON level1
+  clouds = level1.clouds; //verweist auf das JSON level1
+  backgroundObjects = level1.backgroundObjects;
   ctx;
   canvas; //brauchen wir für das clearen, wird unten zugewiesen
   keyboard;
+  camera_x = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -30,12 +22,18 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //canvas ist wieder leer
+
+    this.ctx.translate(this.camera_x,0); 
+    //verschiebt komplettes Bild um den Wert der variable camera_x nach links und um 0 auf der y-Achse
+
     this.addObjectsToMap(this.backgroundObjects);
 
     this.addToMap(this.character);
-
     this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.clouds);
+
+    this.ctx.translate(-this.camera_x,0); 
+    //verschiebt komplettes Bild um den Wert der variable camera_x wieder nach rechts
 
     //Draw() wird immer wieder aufgerufen, aber CAVE: canvas muss vorher gelöscht werden, sonst doppelt
     let self = this;
@@ -53,11 +51,11 @@ class World {
   addToMap(mo) {
     if (mo.otherDirection) {
       this.ctx.save(); // speichern den context für später
-      this.ctx.translate(mo.width,0); //Breite des Bildes wird von der x-Position abgezogen
+      this.ctx.translate(mo.width, 0); //Breite des Bildes wird von der x-Position abgezogen
       this.ctx.scale(-1, 1); //Bild wird an der y-Achse gedreht
       mo.x = mo.x * -1; // auch x-Koordinate wird umgedreht
     }
- 
+
     this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height); //Bild wird gemalt
 
     if (mo.otherDirection) {
