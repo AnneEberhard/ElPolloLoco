@@ -9,6 +9,8 @@ class Character extends MovableObject {
   ];
   world;
   speed = 5;
+  walking_sound = new Audio('audio/running.mp3');
+
 
   constructor() {
     // wird immer aufgerufen, wenn die Klasse aufgerufen wird
@@ -19,25 +21,26 @@ class Character extends MovableObject {
   }
 
   animate() {
+    
     setInterval(() => { //bewegt Charakter nach links oder rechts
+      this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) { //kann nicht weiter nach rechts
         this.x += this.speed;
         this.otherDirection = false;
+        this.walking_sound.play();
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) { //kann nicht weiter nach links
         this.x -= this.speed;
         this.otherDirection = true;
+        this.walking_sound.play();
       }
       this.world.camera_x = -this.x +100; //Position der Kamera, damit Position des Charakters
     }, 1000 / 60);
 
     setInterval(() => { //animiert mit verschiedenen Bildern
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        let i = this.currentImage % this.IMAGES_WALKING.length; // modulo (%) gibt den Rest raus, also z.B. 7 % 6 = 1
-        let path = this.IMAGES_WALKING[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        this.playAnimation(this.IMAGES_WALKING);
       }
     }, 50);
   }

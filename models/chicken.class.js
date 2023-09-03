@@ -7,6 +7,7 @@ class Chicken extends MovableObject {
     "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
     "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
   ];
+  chicken_sound = new Audio('audio/chicken.mp3');
 
   constructor() {
     // wird immer aufgerufen, wenn die Klasse aufgerufen wird
@@ -19,11 +20,10 @@ class Chicken extends MovableObject {
 
   animate() {
     this.moveLeft();
+    this.chicken_sound.pause();
     setInterval(() => {
-      let i = this.currentImage % this.IMAGES_WALKING.length; // modulo (%) gibt den Rest raus, also z.B. 7 % 6 = 1
-      let path = this.IMAGES_WALKING[i];
-      this.img = this.imageCache[path];
-      this.currentImage++;
+      this.playAnimation(this.IMAGES_WALKING);
+      //this.chicken_sound.play();
     }, 100);
   }
 }

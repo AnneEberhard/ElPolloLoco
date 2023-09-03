@@ -3,6 +3,7 @@ const level1 = new Level(
     new Chicken(), // verweist auf Klasse Chicken
     new Chicken(),
     new Chicken(),
+    new Endboss() // verweist auf Klasse Endboss
   ],
   [new Cloud()],
   [
