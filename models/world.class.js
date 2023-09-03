@@ -1,8 +1,6 @@
 class World {
   character = new Character(); //verweist auf Klasse Character
-  enemies = level1.enemies; //verweist auf das JSON level1
-  clouds = level1.clouds; //verweist auf das JSON level1
-  backgroundObjects = level1.backgroundObjects;
+  level = level1; //damit kann auf alle Variablen aus level1 zugegriffen werden
   ctx;
   canvas; //brauchen wir für das clearen, wird unten zugewiesen
   keyboard;
@@ -26,11 +24,11 @@ class World {
     this.ctx.translate(this.camera_x,0); 
     //verschiebt komplettes Bild um den Wert der variable camera_x nach links und um 0 auf der y-Achse
 
-    this.addObjectsToMap(this.backgroundObjects);
+    this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addToMap(this.character);
-    this.addObjectsToMap(this.enemies);
-    this.addObjectsToMap(this.clouds);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.clouds);
 
     this.ctx.translate(-this.camera_x,0); 
     //verschiebt komplettes Bild um den Wert der variable camera_x wieder nach rechts

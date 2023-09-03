@@ -19,19 +19,20 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (this.world.keyboard.RIGHT) {
+    setInterval(() => { //bewegt Charakter nach links oder rechts
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) { //kann nicht weiter nach rechts
         this.x += this.speed;
         this.otherDirection = false;
       }
-      if (this.world.keyboard.LEFT) {
+
+      if (this.world.keyboard.LEFT && this.x > 0) { //kann nicht weiter nach links
         this.x -= this.speed;
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x;
+      this.world.camera_x = -this.x +100; //Position der Kamera, damit Position des Charakters
     }, 1000 / 60);
 
-    setInterval(() => {
+    setInterval(() => { //animiert mit verschiedenen Bildern
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         let i = this.currentImage % this.IMAGES_WALKING.length; // modulo (%) gibt den Rest raus, also z.B. 7 % 6 = 1
         let path = this.IMAGES_WALKING[i];
