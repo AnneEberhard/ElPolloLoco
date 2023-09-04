@@ -25,10 +25,10 @@ class World {
     //verschiebt komplettes Bild um den Wert der variable camera_x nach links und um 0 auf der y-Achse
 
     this.addObjectsToMap(this.level.backgroundObjects);
-
+    this.addObjectsToMap(this.level.clouds);//beachte die Reihenfolge!
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.clouds);
+   
 
     this.ctx.translate(-this.camera_x,0); 
     //verschiebt komplettes Bild um den Wert der variable camera_x wieder nach rechts

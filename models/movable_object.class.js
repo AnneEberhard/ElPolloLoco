@@ -1,14 +1,16 @@
 class MovableObject {
   //Superklasse für alle bewegten Objekte; n Klassen braucht man weder let noch function
-  x = 100;
-  y = 125;
+  x;
+  y;
   img;
-  height = 300;
-  width = 150;
+  height;
+  width;
   imageCache = {};
   currentImage = 0;
   speed = 0.5;
   otherDirection = false;
+  speedY = 0;
+  accelaration = 2.5;
 
 
   loadImage(path) {
@@ -29,15 +31,16 @@ class MovableObject {
   }
 
   moveRight() {
-    setInterval( () => {
-      this.x += this.speed;
-    }, 1000 / 60)
+    this.x += this.speed;
   }
 
   moveLeft() {
-    setInterval( () => {
-      this.x -= this.speed;
-    }, 1000 / 60)
+    this.x -= this.speed;
+  }
+
+  jump() {
+    this.speedY = 30;
+    this.jumping_sound.play();
   }
 
   playAnimation(images) {
@@ -46,4 +49,18 @@ class MovableObject {
     this.img = this.imageCache[path];
     this.currentImage++;
   }
+
+  applyGravity() {
+    setInterval(() => {
+      if(this.isAboveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.accelaration;
+      }
+    }, 1000 / 25)
+  }
+
+  isAboveGround() {
+    return this.y < 120
+  }
+
 }
