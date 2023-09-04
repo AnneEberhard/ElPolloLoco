@@ -68,11 +68,21 @@ draw(ctx) {
 }
 
 drawFrame(ctx) {
-  ctx.beginPath();
-  ctx.lineWidth = "5";
-  ctx.strokeStyle = "blue";
-  ctx.rect(this.x, this.y, this.width, this.height);
-  ctx.stroke();
+  if(this instanceof Character || this instanceof Chicken || this instanceof Endboss)  {
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "blue";
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.stroke();
+  }
+}
+
+//character.isColliding(chicken);
+isColliding(mo) {
+  return this.x + this.width > mo.x &&
+  this.y + this.height > mo.y &&
+  this.x < mo.x &&
+  this.y < mo.y + mo.height
 }
 
 }

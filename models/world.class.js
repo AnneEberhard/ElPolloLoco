@@ -12,6 +12,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.checkCollisions();
   }
 
   setWorld() {
@@ -20,16 +21,12 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //canvas ist wieder leer
-
     this.ctx.translate(this.camera_x,0); 
     //verschiebt komplettes Bild um den Wert der variable camera_x nach links und um 0 auf der y-Achse
-
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);//beachte die Reihenfolge!
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
-   
-
     this.ctx.translate(-this.camera_x,0); 
     //verschiebt komplettes Bild um den Wert der variable camera_x wieder nach rechts
 
@@ -50,10 +47,8 @@ class World {
     if (mo.otherDirection) {
     this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -69,5 +64,15 @@ class World {
   flipImageBack(mo) {
     this.ctx.restore(); //einstellungen werden zurückgesetzt
     mo.x = mo.x * -1;
+  }
+
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach( (enemy) => {
+        if(this.character.isColliding(enemy) ) {
+          console.log('bäm');
+        }
+      })
+    }, 200);
   }
 }
