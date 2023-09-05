@@ -8,6 +8,7 @@ class World {
   statusBarHealth = new StatusbarHealth();
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
+  throwableObjects = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -15,7 +16,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.run();
   }
 
   /**
@@ -46,7 +47,7 @@ class World {
     // -----------End of Space for fixed objects ---------------
 
     this.addToMap(this.character);
-
+    this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.level.enemies);
     this.ctx.translate(-this.camera_x, 0);
     //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
@@ -107,14 +108,26 @@ class World {
    * This function checks for collision
    * @param {*}  mo = movable object to draw
    */
-  checkCollisions() {
+  run() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit(this.character);
-          this.statusBarHealth.setPercentage(this.character.energy);
-        }
-      });
+      this.checkCollision();
+      this.checkThrowableObjects();
     }, 200);
+  }
+
+  checkCollision() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit(this.character);
+        this.statusBarHealth.setPercentage(this.character.energy);
+      }
+    });
+  }
+
+  checkThrowableObjects() {
+    if (this.keyboard.D) {
+      let bottle = new ThrowableObject(this.character.x + 75, this.character.y + 150);
+      this.throwableObjects.push(bottle);
+    }
   }
 }
