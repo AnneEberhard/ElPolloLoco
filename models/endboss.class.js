@@ -23,7 +23,7 @@ class Endboss extends MovableObject{
     constructor() {
       super().loadImage("img/4_enemie_boss_chicken/2_alert/G5.png"); 
       this.loadImages(this.IMAGES_ALERT);
-      this.x = 400; //ändern wenn Endboss fertig
+      this.x = 2400; //ändern wenn Endboss fertig
       this.animate();
     }
   

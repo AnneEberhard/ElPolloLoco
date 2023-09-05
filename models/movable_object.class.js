@@ -12,6 +12,7 @@ class MovableObject {
   speedY = 0;
   accelaration = 2.5;
   energy = 100;
+  lastHit = 0;
 
   loadImage(path) {
     this.img = new Image(); //JS für: this.img = document.getElementById('image') <image id='image'> kommt erst später in HTML
@@ -92,14 +93,22 @@ class MovableObject {
   }
 
   hit(mo) {
-      mo.energy -= 5;   
+    mo.energy -= 5;
     if (mo.energy < 0) {
       mo.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
     }
   }
 
-  isDead() { //gibt bei energy = 0 true zurück
-    return this.energy == 0;
+  isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit;//Diff in milliseconds
+    timepassed = timepassed / 1000; //Diff in seconds
+    return timepassed < 1; //if hit during the last 5s, return is true
   }
 
+  isDead() {
+    //gibt bei energy = 0 true zurück
+    return this.energy == 0;
+  }
 }
