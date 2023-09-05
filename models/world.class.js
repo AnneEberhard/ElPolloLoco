@@ -55,14 +55,14 @@ class World {
   }
 
   flipImage(mo) {
-    this.ctx.save(); // speichern den context für später
-    this.ctx.translate(mo.width, 0); //Breite des Bildes wird von der x-Position abgezogen
-    this.ctx.scale(-1, 1); //Bild wird an der y-Achse gedreht
-    mo.x = mo.x * -1; // auch x-Koordinate wird umgedreht
+    this.ctx.save(); 
+    this.ctx.translate(mo.width, 0); 
+    this.ctx.scale(-1, 1); 
+    mo.x = mo.x * -1; 
   }
 
   flipImageBack(mo) {
-    this.ctx.restore(); //einstellungen werden zurückgesetzt
+    this.ctx.restore(); 
     mo.x = mo.x * -1;
   }
 
@@ -70,9 +70,12 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach( (enemy) => {
         if(this.character.isColliding(enemy) ) {
-          console.log('bäm');
+          this.character.hit(this.character); 
         }
       })
     }, 200);
   }
+
+
+
 }
