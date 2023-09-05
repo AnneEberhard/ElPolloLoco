@@ -5,7 +5,9 @@ class World {
   canvas; //brauchen wir für das clearen, wird unten zugewiesen
   keyboard;
   camera_x = 0;
-  statusBar = new Statusbar();
+  statusBarHealth = new StatusbarHealth();
+  statusBarBottle = new StatusbarBottle();
+  statusBarCoin = new StatusbarCoin();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -37,7 +39,9 @@ class World {
 
     // -----------Space for fixed objects ---------------
     this.ctx.translate(-this.camera_x, 0); //Back
-    this.addToMap(this.statusBar);
+    this.addToMap(this.statusBarHealth);
+    this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarCoin);
     this.ctx.translate(this.camera_x, 0); // Forward
     // -----------End of Space for fixed objects ---------------
 
@@ -108,7 +112,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
           this.character.hit(this.character);
-          this.statusBar.setPercentage(this.character.energy);
+          this.statusBarHealth.setPercentage(this.character.energy);
         }
       });
     }, 200);

@@ -3,9 +3,10 @@ const level1 = new Level(
     new Chicken(), // verweist auf Klasse Chicken
     new Chicken(),
     new Chicken(),
+    new Chicken(),
     new Endboss() // verweist auf Klasse Endboss
   ],
-  [new Cloud()],
+  [new Cloud(),new Cloud(),new Cloud()],
   [
     new BackgroundObjects("img/5_background/layers/air.png", -719),
     new BackgroundObjects("img/5_background/layers/3_third_layer/2.png", -719),
