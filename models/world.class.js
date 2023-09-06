@@ -9,6 +9,8 @@ class World {
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
   throwableObjects = [];
+  isGameOver = false;
+  endScreen = new Endscreen();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -37,26 +39,29 @@ class World {
     //picture is moved for the value of the variable camera_x on x-axis (to the left) and 0 on y-axis
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
-
-    // -----------Space for fixed objects ---------------
-    this.ctx.translate(-this.camera_x, 0); //Back
-    this.addToMap(this.statusBarHealth);
-    this.addToMap(this.statusBarBottle);
-    this.addToMap(this.statusBarCoin);
-    this.ctx.translate(this.camera_x, 0); // Forward
-    // -----------End of Space for fixed objects ---------------
-
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.throwableObjects);
-    this.addObjectsToMap(this.level.enemies);
-    this.ctx.translate(-this.camera_x, 0);
-    //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
-
-    //draw() will be executed continously according to
-    let self = this; //needed since this doesn't work in the function below
-    requestAnimationFrame(function () {
-      self.draw();
-    });
+    if (this.isGameOver) {
+      this.ctx.translate(-this.camera_x, 0); //Back
+      this.addToMap(this.endScreen);
+    } else {
+      // -----------Space for fixed objects ---------------
+      this.ctx.translate(-this.camera_x, 0); //Back
+      this.addToMap(this.statusBarHealth);
+      this.addToMap(this.statusBarBottle);
+      this.addToMap(this.statusBarCoin);
+      this.ctx.translate(this.camera_x, 0); // Forward
+      // -----------End of Space for fixed objects ---------------
+      this.addToMap(this.character);
+      this.addObjectsToMap(this.throwableObjects);
+      this.addObjectsToMap(this.level.enemies);
+      this.ctx.translate(-this.camera_x, 0);
+      //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
+  
+      //draw() will be executed continously according to
+      let self = this; //needed since this doesn't work in the function below
+      requestAnimationFrame(function () {
+        self.draw();
+      });
+    }
   }
 
   /**
@@ -129,5 +134,9 @@ class World {
       let bottle = new ThrowableObject(this.character.x + 75, this.character.y + 150);
       this.throwableObjects.push(bottle);
     }
+  }
+
+  gameOver() {
+   this.isGameOver = true;
   }
 }
