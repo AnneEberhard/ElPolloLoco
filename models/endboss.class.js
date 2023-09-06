@@ -61,7 +61,7 @@ IMAGES_DEAD = [
       }
 
       playEndboss() {        
-        if (this.world.camera_x && this.world.camera_x > 1500) {
+        if (this.world && this.world.camera_x < -1800) {
         this.chicken_sound.play();
       }
     }
