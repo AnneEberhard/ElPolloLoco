@@ -50,6 +50,15 @@ drawFrame(ctx) {
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.stroke();
     }
+    if (
+      this instanceof Coin
+    ) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x+60, this.y+60, this.width-120, this.height-120);
+      ctx.stroke();
+    }
   }
 
 

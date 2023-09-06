@@ -1,7 +1,6 @@
 class World {
   character = new Character(); //verweist auf Klasse Character
   level = level1; //damit kann auf alle Variablen aus level1 zugegriffen werden
-  endboss = this.level.enemies[4];
   ctx;
   canvas; //brauchen wir für das clearen, wird unten zugewiesen
   keyboard;
@@ -28,7 +27,6 @@ class World {
    */
   setWorld() {
     this.character.world = this;
-    //this.endboss.world = this;
     this.level.enemies.forEach((enemy) => {
      enemy.world = this;
     });
@@ -44,7 +42,6 @@ class World {
     //picture is moved for the value of the variable camera_x on x-axis (to the left) and 0 on y-axis
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
-    this.addObjectsToMap(this.level.coins);
     if (this.isGameOver) {
       this.ctx.translate(-this.camera_x, 0); //Back
       this.addToMap(this.endScreen);
@@ -56,6 +53,7 @@ class World {
       this.addToMap(this.statusBarCoin);
       this.ctx.translate(this.camera_x, 0); // Forward
       // -----------End of Space for fixed objects ---------------
+      this.addObjectsToMap(this.level.coins);
       this.addToMap(this.character);
       this.addObjectsToMap(this.throwableObjects);
       this.addObjectsToMap(this.level.enemies);
@@ -89,7 +87,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    //mo.drawFrame(this.ctx);
+    mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -134,7 +132,7 @@ class World {
       }
     });
     this.level.coins.forEach((coin) => {
-      if (this.character.isColliding(coin)) {
+      if (this.character.isCollecting(coin)) {
         console.log('coin collected');
         this.statusBarCoin.setPercentage(20);
       }

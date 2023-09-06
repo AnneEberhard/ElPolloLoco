@@ -61,7 +61,7 @@ class MovableObject extends DrawableObject {
     return (
       this.x + this.width > mo.x &&
       this.y + this.height > mo.y &&
-      this.x < mo.x &&
+      this.x < mo.x + mo.width &&
       this.y < mo.y + mo.height
     );
   }
@@ -84,5 +84,15 @@ class MovableObject extends DrawableObject {
   isDead() {
     //returns true if energy = 0
     return this.energy == 0;
+  }
+
+  isCollecting(mo) {
+    return (
+      this.x + this.width > mo.x+60 &&
+      this.y + this.height-120 > mo.y+60 &&
+      this.x < mo.x+60 + mo.width-120 &&
+      this.y < mo.y+60 + mo.height-120
+    );
+    //(this.x+60, this.y+60, this.width-120, this.height-120);
   }
 }

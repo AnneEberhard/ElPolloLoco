@@ -1,28 +1,66 @@
+@font-face {
+  font-family: 'zabars';
+  src: url('fonts/zabars.ttf') format('truetype'); 
+}  
+
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('img/desert-5385998_1280.png');
+    background-position: center;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    
 }
+
+
+h1 {
+  font-size: 60px;
+  margin: 20px;
+  text-shadow: 4px 4px 4px rgba(0,0,0,0.5);
+  letter-spacing: 4px;
+}
+
 
 canvas {
     background-color: black;
 }
 
+#subtext {
+  display: flex;
+  width: 60vw;
+  justify-content: center;
+  gap: 51px;
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 22px;
+  font-weight: bold;
+  background-color: black;
+  color: rgb(255,206,21);
+  border-radius: 5px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
 .startButton {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(191,0,0);
-    color: white;
-    font-size: 24px;
+    /*background-color: rgb(191,0,0);*/
+    background-color: black;
+    color: rgb(255,206,21);
+    font-size: 48px;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     border-radius: 10px;
-    border: white 4px solid;
+    border: rgb(255,206,21) 4px solid;
     width: 20%;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
   }
+
 
   .startButton:hover {
     background-color: darkred;

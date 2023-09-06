@@ -61,7 +61,7 @@ IMAGES_DEAD = [
       }
 
       playEndboss() {        
-        if (this.world && this.world.camera_x < -1800) {
+        if (this.world && this.world.camera_x < -1800 && world.isGameOver == false) {
         this.chicken_sound.play();
       }
     }

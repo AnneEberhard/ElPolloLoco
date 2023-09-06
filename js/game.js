@@ -2,12 +2,20 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let introImage;
-let introImageX = 0; // Startposition des Eingangsbildes (links)
+let introImageX = 0; 
 
+/**
+ * This function starts the initialisation
+ * @param {*} = no param
+ */
 function init() {
   intro();
 }
 
+/**
+ * This function starts the intropage
+ * @param {*} = no param
+ */
 function intro() {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
@@ -19,6 +27,10 @@ function intro() {
   };
 }
 
+/**
+ * This function draws the intro picture and scales it to the canvas
+ * @param {*} = no param
+ */
 function drawIntroImage() {
   const scaleX = canvas.width / introImage.width;
   const scaleY = canvas.height / introImage.height;
@@ -34,6 +46,10 @@ function drawIntroImage() {
   );
 }
 
+/**
+ * This function draws the start Button on the intro picture
+ * @param {*} = no param
+ */
 function drawStartButton() {
   const startButton = document.createElement("button");
   startButton.textContent = "Start";
@@ -42,6 +58,10 @@ function drawStartButton() {
   document.body.appendChild(startButton);
 }
 
+/**
+ * This function begins start procedure
+ * @param {*} = no param
+ */
 function start() {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
@@ -50,6 +70,10 @@ function start() {
   animateOut();
 }
 
+/**
+ * This function slides the intro picture out to the right and at the ends creates the new World
+ * @param {*} = no param
+ */
 function animateOut() {
   introImageX += 15;
   clearCanvas(canvas);
@@ -66,11 +90,19 @@ function animateOut() {
   }
 }
 
+/**
+ * This function clears the canvas for the new world
+ * @param {*} = no param
+ */
 function clearCanvas(canvas) {
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+/**
+ * This function adds the logic when key pressed down
+ * @param {*} = no param
+ */
 window.addEventListener("keydown", (event) => {
   if (event.keyCode == 39) {
     keyboard.RIGHT = true;
@@ -92,6 +124,10 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+/**
+ * This function stops the logic when key no longer pressed down
+ * @param {*} = no param
+ */
 window.addEventListener("keyup", (event) => {
   if (event.keyCode == 39) {
     keyboard.RIGHT = false;
@@ -113,6 +149,11 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
+
+/**
+ * This function is a back-up without animation
+ * @param {*} = no param
+ */
 function start2() {
   const canvas = document.getElementById("canvas");
   clearCanvas(canvas);
