@@ -102,17 +102,17 @@ IMAGES_LONG_IDLE = [
   moveCharacterImages() {
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
+        this.playAnimationOnce(this.IMAGES_DEAD);
       }  else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
+        this.playAnimationOnLoop(this.IMAGES_HURT);
       }
       else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
+        this.playAnimationOnLoop(this.IMAGES_JUMPING);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
+          this.playAnimationOnLoop(this.IMAGES_WALKING);
         } else {
-          this.playAnimation(this.IMAGES_IDLE);
+          this.playAnimationOnLoop(this.IMAGES_IDLE);
         }
       }
     }, 100);
@@ -129,7 +129,5 @@ walkRight() {
   this.otherDirection = false;
   this.walking_sound.play();
 }
-
-
 
 }

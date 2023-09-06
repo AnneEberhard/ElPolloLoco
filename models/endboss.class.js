@@ -29,7 +29,7 @@ class Endboss extends MovableObject{
   
     animate() {
         setInterval(() => {
-          this.playAnimation(this.IMAGES_ALERT);
+          this.playAnimationOnLoop(this.IMAGES_ALERT);
           //this.chicken_sound.play(); 
         }, 200);
       }

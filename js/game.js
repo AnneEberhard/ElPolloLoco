@@ -53,22 +53,13 @@ function start() {
 function animateOut() {
   introImageX += 15;
   clearCanvas(canvas);
-
   const scaleX = canvas.width / introImage.width;
   const scaleY = canvas.height / introImage.height;
   const scale = Math.min(scaleX, scaleY);
-
   const x = introImageX;
   const y = (canvas.height - introImage.height * scale) / 2;
-
   if (x < canvas.width) {
-    ctx.drawImage(
-      introImage,
-      x,
-      y,
-      introImage.width * scale,
-      introImage.height * scale
-    );
+    ctx.drawImage(introImage,x,y,introImage.width * scale,introImage.height * scale);
     requestAnimationFrame(animateOut);
   } else {
     world = new World(canvas, keyboard);

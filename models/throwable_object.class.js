@@ -35,7 +35,7 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
     setInterval( () => {
         this.x += 10;
-        this.playAnimation(this.IMAGES_ROTATION);
+        this.playAnimationOnLoop(this.IMAGES_ROTATION);
     }, 30)
   }
 }

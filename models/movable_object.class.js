@@ -20,8 +20,17 @@ class MovableObject extends DrawableObject {
     this.jumping_sound.play();
   }
 
-  playAnimation(images) {
-    let i = this.currentImage % images.length; // modulo (%) gibt den Rest raus, also z.B. 7 % 6 = 1
+  playAnimationOnLoop(images) {
+    let i = this.currentImage % images.length;
+    this.playAnimation(images, i);
+  }
+
+  playAnimationOnce(images) {
+    let i = images.length - 1;
+    this.playAnimation(images, i);
+  }
+
+  playAnimation(images, i) {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
@@ -73,7 +82,7 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    //gibt bei energy = 0 true zurück
+    //returns true if energy = 0
     return this.energy == 0;
   }
 }
