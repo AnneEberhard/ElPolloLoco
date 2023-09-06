@@ -42,6 +42,7 @@ class World {
     //picture is moved for the value of the variable camera_x on x-axis (to the left) and 0 on y-axis
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
+    this.addObjectsToMap(this.level.coins);
     if (this.isGameOver) {
       this.ctx.translate(-this.camera_x, 0); //Back
       this.addToMap(this.endScreen);
@@ -128,6 +129,12 @@ class World {
       if (this.character.isColliding(enemy)) {
         this.character.hit(this.character);
         this.statusBarHealth.setPercentage(this.character.energy);
+      }
+    });
+    this.level.coins.forEach((coin) => {
+      if (this.character.isColliding(coin)) {
+        console.log('coin collected');
+        this.statusBarCoin.setPercentage(20);
       }
     });
   }

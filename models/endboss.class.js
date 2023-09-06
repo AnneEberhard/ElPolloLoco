@@ -31,7 +31,7 @@ class Endboss extends MovableObject{
     animate() {
         setInterval(() => {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
-          this.playEndboss();
+         //this.playEndboss();
          
         }, 200);
       }
