@@ -14,12 +14,12 @@ function intro() {
   introImage = new Image();
   introImage.src = "img/9_intro_outro_screens/start/startscreen_2.png";
   introImage.onload = function () {
-    drawIntroImage(canvas, introImage, ctx);
+    drawIntroImage();
     drawStartButton();
   };
 }
 
-function drawIntroImage(canvas, introImage, ctx) {
+function drawIntroImage() {
   const scaleX = canvas.width / introImage.width;
   const scaleY = canvas.height / introImage.height;
   const scale = Math.min(scaleX, scaleY);
