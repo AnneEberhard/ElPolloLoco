@@ -2,6 +2,7 @@ class Endboss extends MovableObject{
     height = 500; 
     width = 400;
     y = -28;
+    world;
     IMAGES_WALKING = [
       "img/4_enemie_boss_chicken/1_walk/G1.png",
       "img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -30,7 +31,14 @@ class Endboss extends MovableObject{
     animate() {
         setInterval(() => {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
-          //this.chicken_sound.play(); 
+          this.playEndboss();
+         
         }, 200);
+      }
+
+      playEndboss() {
+        if (this.world.camera_x > 1500) {
+          this.chicken_sound.play(); 
+        }
       }
 }
