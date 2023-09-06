@@ -1,6 +1,7 @@
 class World {
   character = new Character(); //verweist auf Klasse Character
   level = level1; //damit kann auf alle Variablen aus level1 zugegriffen werden
+  endboss = this.level.enemies[4];
   ctx;
   canvas; //brauchen wir für das clearen, wird unten zugewiesen
   keyboard;
@@ -27,9 +28,10 @@ class World {
    */
   setWorld() {
     this.character.world = this;
-    this.level.enemies.forEach((enemy) => {
-      enemy.world = this;
-    });
+    this.endboss.world = this;
+    //this.level.enemies.forEach((enemy) => {
+    //  enemy.world = this;
+    //});
   }
 
   /**
