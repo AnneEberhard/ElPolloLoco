@@ -54,6 +54,7 @@ class World {
       this.ctx.translate(this.camera_x, 0); // Forward
       // -----------End of Space for fixed objects ---------------
       this.addObjectsToMap(this.level.coins);
+      this.addObjectsToMap(this.level.bottles);
       this.addToMap(this.character);
       this.addObjectsToMap(this.throwableObjects);
       this.addObjectsToMap(this.level.enemies);
@@ -125,18 +126,38 @@ class World {
   }
 
   checkCollision() {
+    this.checkCollisionEnemy();
+    this.checkCollisionCoin();
+    this.checkCollisionBottle();
+  }
+
+  checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit(this.character);
         this.statusBarHealth.setPercentage(this.character.energy);
       }
     });
+  }
+
+  checkCollisionCoin() {
     for (let i = 0; i < this.level.coins.length; i++) {
       let coin = this.level.coins[i];
       if (this.character.isColliding(coin)) {
-        this.level.coins.splice(i,1);
-        this.character.coinsCollected +=20;
+        this.level.coins.splice(i, 1);
+        this.character.coinsCollected += 20;
         this.statusBarCoin.setPercentage(this.character.coinsCollected);
+      }
+    }
+  }
+
+  checkCollisionBottle() {
+    for (let i = 0; i < this.level.bottles.length; i++) {
+      let bottle = this.level.bottles[i];
+      if (this.character.isColliding(bottle)) {
+        this.level.bottles.splice(i, 1);
+        this.character.bottlesCollected += 20;
+        this.statusBarBottle.setPercentage(this.character.bottlesCollected);
       }
     }
   }
@@ -151,7 +172,7 @@ class World {
     }
   }
 
-  gameOver() {
-    this.isGameOver = true;
-  }
+  //gameOver() {
+  // this.isGameOver = true;
+  //}
 }

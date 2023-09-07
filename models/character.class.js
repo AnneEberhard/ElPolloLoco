@@ -63,6 +63,7 @@ IMAGES_LONG_IDLE = [
   world;
   speed = 5;
   coinsCollected = 0;
+  bottlesCollected = 0;
 
   offset = {
     top: 120,
