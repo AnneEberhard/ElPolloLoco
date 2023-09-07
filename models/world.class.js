@@ -28,7 +28,7 @@ class World {
   setWorld() {
     this.character.world = this;
     this.level.enemies.forEach((enemy) => {
-     enemy.world = this;
+      enemy.world = this;
     });
   }
 
@@ -59,7 +59,7 @@ class World {
       this.addObjectsToMap(this.level.enemies);
       this.ctx.translate(-this.camera_x, 0);
       //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
-  
+
       //draw() will be executed continously according to
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
@@ -131,22 +131,27 @@ class World {
         this.statusBarHealth.setPercentage(this.character.energy);
       }
     });
-    this.level.coins.forEach((coin) => {
-      if (this.character.isCollecting(coin)) {
-        console.log('coin collected');
-        this.statusBarCoin.setPercentage(20);
+    for (let i = 0; i < this.level.coins.length; i++) {
+      let coin = this.level.coins[i];
+      if (this.character.isColliding(coin)) {
+        this.level.coins.splice(i,1);
+        this.character.coinsCollected +=20;
+        this.statusBarCoin.setPercentage(this.character.coinsCollected);
       }
-    });
+    }
   }
 
   checkThrowableObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 75, this.character.y + 150);
+      let bottle = new ThrowableObject(
+        this.character.x + 75,
+        this.character.y + 150
+      );
       this.throwableObjects.push(bottle);
     }
   }
 
   gameOver() {
-   this.isGameOver = true;
+    this.isGameOver = true;
   }
 }

@@ -7,6 +7,8 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
 
+
+
   moveRight() {
     this.x += this.speed;
   }
@@ -54,15 +56,13 @@ class MovableObject extends DrawableObject {
     
   }
 
-
-
   //character.isColliding(chicken);
   isColliding(mo) {
     return (
-      this.x + this.width > mo.x &&
-      this.y + this.height > mo.y &&
-      this.x < mo.x + mo.width &&
-      this.y < mo.y + mo.height
+      this.x + this.width - this.offset.right > mo.x + mo.offset.left&&
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top&&
+      this.x + this.offset.left < mo.x + mo.offset.right &&
+      this.y + this.offset.top < mo.y + mo.offset.bottom
     );
   }
 
@@ -86,13 +86,4 @@ class MovableObject extends DrawableObject {
     return this.energy == 0;
   }
 
-  isCollecting(mo) {
-    return (
-      this.x + this.width > mo.x+60 &&
-      this.y + this.height-120 > mo.y+60 &&
-      this.x < mo.x+60 + mo.width-120 &&
-      this.y < mo.y+60 + mo.height-120
-    );
-    //(this.x+60, this.y+60, this.width-120, this.height-120);
-  }
 }

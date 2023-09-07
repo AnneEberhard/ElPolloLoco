@@ -8,6 +8,13 @@ class DrawableObject {
   currentImage = 0;
   imageCache = {};
 
+  offset = {
+    top: 0,
+    right:0,
+    bottom:0,
+    left:0
+  }
+
   /**
    * This function loads one new image
    * @param {*} path = source path of the new image
@@ -47,16 +54,19 @@ drawFrame(ctx) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.rect(this.x + this.offset.left, this.y+ this.offset.top, this.width- this.offset.right, this.height- this.offset.bottom);
       ctx.stroke();
     }
     if (
+      this instanceof Character ||
+      this instanceof Chicken ||
+      this instanceof Endboss ||
       this instanceof Coin
     ) {
       ctx.beginPath();
       ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x+60, this.y+60, this.width-120, this.height-120);
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x + this.offset.left, this.y+ this.offset.top, this.width- this.offset.right, this.height- this.offset.bottom);
       ctx.stroke();
     }
   }

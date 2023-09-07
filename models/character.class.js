@@ -62,6 +62,15 @@ IMAGES_LONG_IDLE = [
   ]
   world;
   speed = 5;
+  coinsCollected = 0;
+
+  offset = {
+    top: 120,
+    right:60,
+    bottom:0,
+    left:20
+  }
+
   walking_sound = new Audio("audio/running.mp3");
   jumping_sound = new Audio("audio/jump.mp3");
 
