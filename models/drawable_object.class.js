@@ -67,11 +67,13 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "red";
+      let width = this.width - this.offset.right - this.offset.left;
+      let height = this.height - this.offset.bottom - this.offset.top;
       ctx.rect(
         this.x + this.offset.left,
         this.y + this.offset.top,
-        this.width - this.offset.right,
-        this.height - this.offset.bottom
+        width,
+        height
       );
       ctx.stroke();
     }

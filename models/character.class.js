@@ -67,8 +67,8 @@ IMAGES_LONG_IDLE = [
 
   offset = {
     top: 100,
-    right:40,
-    bottom:60,
+    right:20,
+    bottom:0,
     left:20
   }
 
