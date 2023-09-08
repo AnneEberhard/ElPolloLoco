@@ -5,10 +5,10 @@ class Endboss extends MovableObject {
   world;
   speed = 5;
   offset = {
-    top: 0,
-    right:0,
-    bottom:0,
-    left:-25
+    top: 20,
+    right:20,
+    bottom:20,
+    left: 20
   }
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -68,7 +68,7 @@ class Endboss extends MovableObject {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
           
         } else {
-          if (this.x - this.world.character.x > 100) {
+          if (this.x - this.world.character.x > 80) {
             this.playAnimationOnLoop(this.IMAGES_WALKING);
             this.moveLeft();
           } else {

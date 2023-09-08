@@ -66,9 +66,9 @@ IMAGES_LONG_IDLE = [
   bottlesCollected = 0;
 
   offset = {
-    top: 120,
-    right:60,
-    bottom:0,
+    top: 100,
+    right:40,
+    bottom:60,
     left:20
   }
 
