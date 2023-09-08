@@ -1,8 +1,8 @@
 class World {
-  character = new Character(); //verweist auf Klasse Character
-  level = level1; //damit kann auf alle Variablen aus level1 zugegriffen werden
+  character = new Character(); 
+  level = level1; 
   ctx;
-  canvas; //brauchen wir für das clearen, wird unten zugewiesen
+  canvas; 
   keyboard;
   camera_x = 0;
   statusBarHealth = new StatusbarHealth();
@@ -14,7 +14,7 @@ class World {
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
-    this.canvas = canvas; //brauchen wir für das clearen
+    this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
@@ -56,8 +56,8 @@ class World {
       this.addObjectsToMap(this.level.coins);
       this.addObjectsToMap(this.level.bottles);
       this.addToMap(this.character);
-      this.addObjectsToMap(this.throwableObjects);
       this.addObjectsToMap(this.level.enemies);
+      this.addObjectsToMap(this.throwableObjects);
       this.ctx.translate(-this.camera_x, 0);
       //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
 
@@ -88,7 +88,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    //mo.drawFrame(this.ctx);
+    mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -124,7 +124,7 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollision();
-      this.checkThrowableObjects();
+      this.checkThrow();
     }, 200);
   }
 
@@ -132,6 +132,7 @@ class World {
     this.checkCollisionEnemy();
     this.checkCollisionCoin();
     this.checkCollisionBottle();
+    this.checkCollisionBottleEnemy();
   }
 
   checkCollisionEnemy() {
@@ -165,13 +166,33 @@ class World {
     }
   }
 
-  checkThrowableObjects() {
-    if (this.keyboard.D) {
-      let bottle = new ThrowableObject(
+  checkCollisionBottleEnemy() {
+    if (this.throwableObjects.length > 0) { 
+      let thrownBottle = this.throwableObjects[0];
+      for (let i = 0; i < this.level.enemies.length; i++) {
+        let enemy = this.level.enemies[i];
+        if (enemy.isColliding(thrownBottle)) {
+          this.level.enemies.splice(i,1);
+          console.log(thrownBottle);
+          this.throwableObjects.splice(0,1);
+          //this.splashObjects.push(1);
+          console.log('splash');
+        } 
+      }
+    }
+  }
+  
+
+  checkThrow() {
+    //this.throwableObjects.splice(0,1); only after a certain intervall if needed
+    if (this.keyboard.D && this.character.bottlesCollected > 0) {
+      let bottle = new ThrowableObject (
         this.character.x + 75,
         this.character.y + 150
       );
-      this.throwableObjects.push(bottle);
+      this.throwableObjects.push(bottle); //this is needed for drawing
+      this.character.bottlesCollected -= 20;
+      this.statusBarBottle.setPercentage(this.character.bottlesCollected);
     }
   }
 

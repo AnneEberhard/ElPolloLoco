@@ -7,8 +7,6 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
 
-
-
   moveRight() {
     this.x += this.speed;
   }

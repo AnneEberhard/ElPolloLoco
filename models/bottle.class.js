@@ -1,6 +1,6 @@
 class Bottle extends MovableObject {
-    height = 100;
-    width = 100;
+    height = 80;
+    width = 80;
     y = 300;
     IMAGE_BOTTLEFLIP = [
         'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
@@ -17,7 +17,6 @@ class Bottle extends MovableObject {
     constructor() {
         const randomIndex = Math.random() < 0.5 ? 0 : 1; // choosing ranom between 0 and 1
         super().loadImage(this.IMAGE_BOTTLEFLIP[randomIndex]); //one of the images gets assigned randomly
-        this.loadImages(this.IMAGE_BOTTLEFLIP);
         this.x = 100 + Math.random() * 2000;
         this.y = 300 + Math.random() * 25;
     }
