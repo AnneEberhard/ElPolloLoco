@@ -1,4 +1,4 @@
-class ThrowableObject extends MovableObject {
+class SplashableObject extends MovableObject {
     height = 80;
     width = 80;
     IMAGES_SPLASH = [
@@ -18,20 +18,17 @@ class ThrowableObject extends MovableObject {
     }
   
     constructor(x,y) {
-      super();
+      super().loadImage("img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png");
       this.loadImages(this.IMAGES_SPLASH);
       this.x = x;
       this.y = y;
-      this.splash();
+      this.splashImage();
     }
   
-    throw() {
-      this.speedY = 30;
-      this.applyGravity();
+    splashImage() {
       setInterval( () => {
-          this.x += 10;
-          this.playAnimationOnLoop(this.IMAGES_ROTATION);
-      }, 30)
+          this.playAnimationOnce(this.IMAGES_SPLASH);
+      }, 100)
     }
   }
   

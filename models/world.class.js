@@ -9,6 +9,7 @@ class World {
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
   throwableObjects = [];
+  splashableObjects = [];
   isGameOver = false;
   endScreen = new Endscreen();
 
@@ -58,6 +59,7 @@ class World {
       this.addToMap(this.character);
       this.addObjectsToMap(this.level.enemies);
       this.addObjectsToMap(this.throwableObjects);
+      this.addObjectsToMap(this.splashableObjects);
       this.ctx.translate(-this.camera_x, 0);
       //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
 
@@ -172,11 +174,9 @@ class World {
       for (let i = 0; i < this.level.enemies.length; i++) {
         let enemy = this.level.enemies[i];
         if (enemy.isColliding(thrownBottle)) {
-          this.level.enemies.splice(i,1);
-          console.log(thrownBottle);
+          this.level.enemies.splice(i,1);//umändern in is hurt
+          this.splash(thrownBottle.x,thrownBottle.y);
           this.throwableObjects.splice(0,1);
-          //this.splashObjects.push(1);
-          console.log('splash');
         } 
       }
     }
@@ -194,6 +194,13 @@ class World {
       this.character.bottlesCollected -= 20;
       this.statusBarBottle.setPercentage(this.character.bottlesCollected);
     }
+  }
+
+  splash(x,y) {
+      let bottle = new SplashableObject (x,y);
+      this.splashableObjects.push(bottle); //this is needed for drawing
+      console.log('splash');
+      console.log(this.splashableObjects);
   }
 
   //gameOver() {
