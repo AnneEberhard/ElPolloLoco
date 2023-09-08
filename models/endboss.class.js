@@ -4,6 +4,12 @@ class Endboss extends MovableObject {
   y = -28;
   world;
   speed = 5;
+  offset = {
+    top: 0,
+    right:0,
+    bottom:0,
+    left:-25
+  }
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",
     "img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -49,7 +55,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 2200; //ändern wenn Endboss fertig
+    this.x = 2200;
     this.animate();
   }
 
@@ -57,7 +63,7 @@ class Endboss extends MovableObject {
     let i = 0;
     setInterval(() => {
       if (this.world && this.world.character.x > 1600) {
-        this.playSound(this.chicken_sound);
+        //this.playSound(this.chicken_sound);
         if (i < 10 && this.x - this.world.character.x > 200) {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
           

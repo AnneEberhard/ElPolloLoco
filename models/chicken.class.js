@@ -1,5 +1,5 @@
 class Chicken extends MovableObject {
-  height = 80; //hier ohne this, unten mit
+  height = 80;
   width = 80;
   y = 340;
   IMAGES_WALKING = [
@@ -9,12 +9,6 @@ class Chicken extends MovableObject {
   ];
   chicken_sound = new Audio('audio/chicken.mp3');
   
-  offset = {
-    top: 0,
-    right:0,
-    bottom:0,
-    left:0
-  }
   constructor() {
     super().loadImages(this.IMAGES_WALKING);
     this.x = 300+ Math.random()*1000;

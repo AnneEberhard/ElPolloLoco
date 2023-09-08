@@ -12,14 +12,15 @@ class World {
   splashableObjects = [];
   isGameOver = false;
   endScreen = new Endscreen();
+  pause = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.draw();
-    this.setWorld();
-    this.run();
+      this.draw();
+      this.setWorld();
+      this.run();
   }
 
   /**
@@ -64,9 +65,12 @@ class World {
       //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
 
       //draw() will be executed continously according to
+     
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
+        //if (!this.pause) {
         self.draw();
+      //}
       });
     }
   }
@@ -127,7 +131,17 @@ class World {
     setInterval(() => {
       this.checkCollision();
       this.checkThrow();
+      this.checkPause();
     }, 200);
+  }
+
+  checkPause() {
+    if (this.keyboard.P) {
+      this.pause = true;
+      console.log(this.pause);
+    } else {
+      this.pause = false;
+    }
   }
 
   checkCollision() {
@@ -140,6 +154,7 @@ class World {
   checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
+        console.log('Kollision mit Endboss');
         this.character.hit(this.character);
         this.statusBarHealth.setPercentage(this.character.energy);
       }
@@ -206,4 +221,11 @@ class World {
   //gameOver() {
   // this.isGameOver = true;
   //}
+
+//  try {
+    //faulty function
+//  } catch(e) {
+ //console.warn('Error:', e);
+// console.log('Could not load ', this.variable)
+//  }
 }

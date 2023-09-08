@@ -122,6 +122,14 @@ window.addEventListener("keydown", (event) => {
   if (event.keyCode == 68) {
     keyboard.D = true;
   }
+  if (event.keyCode == 80) {
+    keyboard.P = true;
+    keyboard.W = false;
+  }
+  if (event.keyCode == 87) {
+    keyboard.W = true;
+    keyboard.P = false;
+  }
 });
 
 /**
