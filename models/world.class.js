@@ -154,7 +154,6 @@ class World {
   checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        console.log('Kollision mit Endboss');
         this.character.hit(this.character);
         this.statusBarHealth.setPercentage(this.character.energy);
       }
