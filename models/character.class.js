@@ -133,13 +133,13 @@ IMAGES_LONG_IDLE = [
 walkLeft() {
   this.moveLeft();
   this.otherDirection = true;
-  this.walking_sound.play();
+  this.playSound(this.walking_sound);
 }
 
 walkRight() {
   this.moveRight();
   this.otherDirection = false;
-  this.walking_sound.play();
+  this.playSound(this.walking_sound);
 }
 
 }

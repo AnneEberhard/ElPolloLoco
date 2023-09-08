@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject {
 
   jump() {
     this.speedY = 30;
-    this.jumping_sound.play();
+    this.playSound(this.jumping_sound);
   }
 
   playAnimationOnLoop(images) {
@@ -34,6 +34,12 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+  }
+
+  playSound(sound) {
+    if (this.world && world.isGameOver == false) {
+      sound.play();
+    }
   }
 
   applyGravity() {

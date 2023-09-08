@@ -57,7 +57,7 @@ class Endboss extends MovableObject {
     let i = 0;
     setInterval(() => {
       if (this.world && this.world.character.x > 1600) {
-        this.playEndboss();
+        this.playSound(this.chicken_sound);
         if (i < 10 && this.x - this.world.character.x > 200) {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
           
@@ -77,9 +77,4 @@ class Endboss extends MovableObject {
     }, 200);
   }
 
-  playEndboss() {
-    if (this.world && world.isGameOver == false) {
-      this.chicken_sound.play();
-    }
-  }
 }
