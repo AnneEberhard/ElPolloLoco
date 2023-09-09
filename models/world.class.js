@@ -11,9 +11,9 @@ class World {
   throwableObjects = [];
   splashableObjects = [];
   isGameOver = false;
-  //endScreen = new Endscreen();
-  endScreenWon = new Endscreen(1);
   endScreenLost = new Endscreen(0);
+  endScreenWon = new Endscreen(1);
+  endScreenPause = new Endscreen(2);
   playerWon = false;
   pause = false;
 
@@ -57,7 +57,7 @@ class World {
     } else {
       if (this.pause) {
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.endScreenWon);
+        this.addToMap(this.endScreenPause);
       } else {
         // -----------Space for fixed objects ---------------
         this.ctx.translate(-this.camera_x, 0); //Back

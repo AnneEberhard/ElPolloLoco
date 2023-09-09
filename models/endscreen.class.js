@@ -1,7 +1,8 @@
 class Endscreen extends DrawableObject {
   IMAGES = [
     "img/9_intro_outro_screens/game_over/you lost.png",
-    "img/9_intro_outro_screens/game_over/game over.png"
+    "img/9_intro_outro_screens/game_over/game over.png",
+    "img/pngfind.com-pause-png-654785.png"
   ];
       x = 0;
       y= 0;

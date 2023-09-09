@@ -25,7 +25,7 @@ canvas {
   background-color: black;
 }
 
-#subtext {
+.subtext {
   display: flex;
   width: 60vw;
   justify-content: center;
