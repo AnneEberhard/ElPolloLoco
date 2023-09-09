@@ -69,7 +69,7 @@ class Endboss extends MovableObject {
       }  else if (this.isHurt()) {
         this.playAnimationOnLoop(this.IMAGES_HURT);
       } else if (this.world && this.world.character.x > 1600) {
-        //this.playSound(this.chicken_sound);
+        this.playSound(this.chicken_sound);
         if (i < 10 && this.x - this.world.character.x > 200) {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
         } else {
