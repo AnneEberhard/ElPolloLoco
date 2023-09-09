@@ -94,3 +94,14 @@ a:hover {
   justify-content: center;
   align-items: center;
  }
+
+ .full {
+  height: 32px;
+  position:absolute;
+  bottom: 17%;
+  right: 25%;
+ }
+
+ .full:hover {
+  cursor: pointer;
+ }

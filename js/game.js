@@ -24,6 +24,7 @@ function intro() {
   introImage.onload = function () {
     drawIntroImage();
     drawStartButton();
+    drawFullScreen();
   };
 }
 
@@ -66,6 +67,24 @@ function drawReStartButton() {
   document.body.appendChild(startButton);
 }
 
+function drawFullScreen() {
+  const fullscreenIcon = document.createElement("img");
+  fullscreenIcon.src = "img/icon/icons8-vollbild-50.png";
+  fullscreenIcon.classList.add("full");
+  fullscreenIcon.onclick = goFullScreen;
+  document.body.appendChild(fullscreenIcon);
+}
+
+
+function goFullScreen() {
+  canvas = document.getElementById("canvas");
+  if(canvas.requestFullScreen)
+      canvas.requestFullScreen();
+  else if(canvas.webkitRequestFullScreen)
+      canvas.webkitRequestFullScreen();
+  else if(canvas.mozRequestFullScreen)
+      canvas.mozRequestFullScreen();
+}
 /**
  * This function begins start procedure
  * @param {*} = no param

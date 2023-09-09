@@ -63,6 +63,7 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
+        drawFullScreen();
         this.ctx.translate(this.camera_x, 0); // Forward
         // -----------End of Space for fixed objects ---------------
         this.addObjectsToMap(this.level.coins);
@@ -158,6 +159,7 @@ class World {
     this.checkCollisionCoin();
     this.checkCollisionBottle();
     this.checkCollisionBottleEnemy();
+    this.checkEnemySquashed();
   }
 
   checkCollisionEnemy() {
@@ -201,6 +203,15 @@ class World {
           this.splash(thrownBottle.x, thrownBottle.y);
           this.throwableObjects.splice(0, 1);
         }
+      }
+    }
+  }
+
+  checkEnemySquashed() {
+    for (let i = 0; i < this.level.enemies.length; i++) {
+      let enemy = this.level.enemies[i];
+      if (this.character.isColliding(enemy)) {
+//neue Logik???
       }
     }
   }
