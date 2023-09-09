@@ -40,8 +40,7 @@ canvas {
   letter-spacing: 2px;
   text-align: center;
 }
-
-.startButton {
+button {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -59,6 +58,39 @@ canvas {
   font-family: "zabars", Arial, Helvetica, sans-serif;
 }
 
-.startButton:hover {
+.startButton {
+  top: 30%;
+}
+
+button:hover {
   background-color: darkred;
 }
+
+.reStartButton {
+  top: 75%;
+}
+
+.icon {
+  height: 24px;
+  margin: 16px;
+}
+
+a {
+  color: rgb(199,103,88);
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.impressum {
+  flex-direction: column;
+  padding: 32px;
+  margin: 16px;
+}
+ .returnToIndex {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+ }

@@ -58,6 +58,14 @@ function drawStartButton() {
   document.body.appendChild(startButton);
 }
 
+function drawReStartButton() {
+  const startButton = document.createElement("button");
+  startButton.textContent = "Re-Start";
+  startButton.classList.add("reStartButton");
+  startButton.onclick = start;
+  document.body.appendChild(startButton);
+}
+
 /**
  * This function begins start procedure
  * @param {*} = no param

@@ -51,8 +51,10 @@ class World {
       this.ctx.translate(-this.camera_x, 0); 
       if (this.playerWon) {
         this.addToMap(this.endScreenWon);
+        drawReStartButton();
       } else {
         this.addToMap(this.endScreenLost);
+        drawReStartButton();
       }
     } else {
       if (!this.pause) {
