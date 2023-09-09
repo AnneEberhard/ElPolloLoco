@@ -48,17 +48,14 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
     if (this.isGameOver) {
-      this.ctx.translate(-this.camera_x, 0); // Zurücksetzen
+      this.ctx.translate(-this.camera_x, 0); 
       if (this.playerWon) {
         this.addToMap(this.endScreenWon);
       } else {
         this.addToMap(this.endScreenLost);
       }
     } else {
-      if (this.pause) {
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.endScreenPause);
-      } else {
+      if (!this.pause) {
         // -----------Space for fixed objects ---------------
         this.ctx.translate(-this.camera_x, 0); //Back
         this.addToMap(this.statusBarHealth);
@@ -74,7 +71,10 @@ class World {
         this.addObjectsToMap(this.splashableObjects);
         this.ctx.translate(-this.camera_x, 0);
         //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
-      }
+      } else {
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.endScreenPause);
+      } 
       //draw() will be executed continously according to
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
