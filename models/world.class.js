@@ -1,8 +1,8 @@
 class World {
-  character = new Character(); 
-  level = level1; 
+  character = new Character();
+  level = level1;
   ctx;
-  canvas; 
+  canvas;
   keyboard;
   camera_x = 0;
   statusBarHealth = new StatusbarHealth();
@@ -11,16 +11,19 @@ class World {
   throwableObjects = [];
   splashableObjects = [];
   isGameOver = false;
-  endScreen = new Endscreen();
+  //endScreen = new Endscreen();
+  endScreenWon = new Endscreen(1);
+  endScreenLost = new Endscreen(0);
+  playerWon = false;
   pause = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-      this.draw();
-      this.setWorld();
-      this.run();
+    this.draw();
+    this.setWorld();
+    this.run();
   }
 
   /**
@@ -45,32 +48,37 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
     if (this.isGameOver) {
-      this.ctx.translate(-this.camera_x, 0); //Back
-      this.addToMap(this.endScreen);
+      this.ctx.translate(-this.camera_x, 0); // Zurücksetzen
+      if (this.playerWon) {
+        this.addToMap(this.endScreenWon);
+      } else {
+        this.addToMap(this.endScreenLost);
+      }
     } else {
-      // -----------Space for fixed objects ---------------
-      this.ctx.translate(-this.camera_x, 0); //Back
-      this.addToMap(this.statusBarHealth);
-      this.addToMap(this.statusBarBottle);
-      this.addToMap(this.statusBarCoin);
-      this.ctx.translate(this.camera_x, 0); // Forward
-      // -----------End of Space for fixed objects ---------------
-      this.addObjectsToMap(this.level.coins);
-      this.addObjectsToMap(this.level.bottles);
-      this.addToMap(this.character);
-      this.addObjectsToMap(this.level.enemies);
-      this.addObjectsToMap(this.throwableObjects);
-      this.addObjectsToMap(this.splashableObjects);
-      this.ctx.translate(-this.camera_x, 0);
-      //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
-
+      if (this.pause) {
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.endScreenWon);
+      } else {
+        // -----------Space for fixed objects ---------------
+        this.ctx.translate(-this.camera_x, 0); //Back
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+        this.ctx.translate(this.camera_x, 0); // Forward
+        // -----------End of Space for fixed objects ---------------
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.splashableObjects);
+        this.ctx.translate(-this.camera_x, 0);
+        //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
+      }
       //draw() will be executed continously according to
-     
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
-        //if (!this.pause) {
         self.draw();
-      //}
       });
     }
   }
@@ -98,7 +106,7 @@ class World {
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
-    if(this instanceof Bottle ) {
+    if (this instanceof Bottle) {
       this.flipImageBack(mo);
     }
   }
@@ -138,7 +146,6 @@ class World {
   checkPause() {
     if (this.keyboard.P) {
       this.pause = true;
-      console.log(this.pause);
     } else {
       this.pause = false;
     }
@@ -183,48 +190,56 @@ class World {
   }
 
   checkCollisionBottleEnemy() {
-    if (this.throwableObjects.length > 0) { 
+    if (this.throwableObjects.length > 0) {
       let thrownBottle = this.throwableObjects[0];
       for (let i = 0; i < this.level.enemies.length; i++) {
         let enemy = this.level.enemies[i];
         if (enemy.isColliding(thrownBottle)) {
-          this.level.enemies.splice(i,1);//umändern in is hurt
-          this.splash(thrownBottle.x,thrownBottle.y);
-          this.throwableObjects.splice(0,1);
-        } 
+          enemy.hit(enemy);
+          this.splash(thrownBottle.x, thrownBottle.y);
+          this.throwableObjects.splice(0, 1);
+        }
       }
     }
   }
-  
 
   checkThrow() {
     //this.throwableObjects.splice(0,1); only after a certain intervall if needed
     if (this.keyboard.D && this.character.bottlesCollected > 0) {
-      let bottle = new ThrowableObject (
+      let bottle = new ThrowableObject(
         this.character.x + 75,
         this.character.y + 150
       );
       this.throwableObjects.push(bottle); //this is needed for drawing
       this.character.bottlesCollected -= 20;
       this.statusBarBottle.setPercentage(this.character.bottlesCollected);
+      setTimeout(() => {
+        this.throwableObjects.splice(0, 1);
+      }, 2000);
     }
   }
 
-  splash(x,y) {
-      let bottle = new SplashableObject (x,y);
-      this.splashableObjects.push(bottle); //this is needed for drawing
-      console.log('splash');
-      console.log(this.splashableObjects);
+  splash(x, y) {
+    let bottle = new SplashableObject(x + 80, y + 80);
+    this.splashableObjects.push(bottle); //this is needed for drawing
+    setTimeout(() => {
+      this.splashableObjects.splice(0, 1);
+    }, 1000);
   }
 
-  //gameOver() {
-  // this.isGameOver = true;
-  //}
+  gameOver(x) {
+    setTimeout(() => {
+      this.isGameOver = true;
+      if ((x = 1)) {
+        this.playerWon = true;
+      }
+    }, 1000);
+  }
 
-//  try {
-    //faulty function
-//  } catch(e) {
- //console.warn('Error:', e);
-// console.log('Could not load ', this.variable)
-//  }
+  //  try {
+  //faulty function
+  //  } catch(e) {
+  //console.warn('Error:', e);
+  // console.log('Could not load ', this.variable)
+  //  }
 }

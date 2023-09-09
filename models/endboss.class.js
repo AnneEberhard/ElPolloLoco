@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
   y = -28;
   world;
   speed = 5;
-  energy = 60;
+  energy = 15;
   offset = {
     top: 20,
     right:20,
@@ -63,11 +63,15 @@ class Endboss extends MovableObject {
   animate() {
     let i = 0;
     setInterval(() => {
-      if (this.world && this.world.character.x > 1600) {
+      if (this.isDead()) {
+        this.playAnimationOnLoop(this.IMAGES_DEAD);
+        world.gameOver(1);
+      }  else if (this.isHurt()) {
+        this.playAnimationOnLoop(this.IMAGES_HURT);
+      } else if (this.world && this.world.character.x > 1600) {
         //this.playSound(this.chicken_sound);
         if (i < 10 && this.x - this.world.character.x > 200) {
           this.playAnimationOnLoop(this.IMAGES_ALERT);
-          
         } else {
           if (this.x - this.world.character.x > 80) {
             this.playAnimationOnLoop(this.IMAGES_WALKING);

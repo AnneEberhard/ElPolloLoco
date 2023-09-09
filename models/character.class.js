@@ -113,8 +113,8 @@ IMAGES_LONG_IDLE = [
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
-        //world.gameOver();
-        world.isGameOver = true;
+        world.gameOver(0);
+        //world.isGameOver = true;
       }  else if (this.isHurt()) {
         this.playAnimationOnLoop(this.IMAGES_HURT);
       }
