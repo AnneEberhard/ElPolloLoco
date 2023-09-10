@@ -3,6 +3,7 @@ class Character extends MovableObject {
   y = 120;
   height = 300;
   width = 150;
+  energy = 100;
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
     "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -76,8 +77,7 @@ IMAGES_LONG_IDLE = [
   jumping_sound = new Audio("audio/jump.mp3");
 
   constructor() {
-    // wird immer aufgerufen, wenn die Klasse aufgerufen wird
-    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png"); //greift auf übergeordnete Klasse zu
+    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png"); 
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_LONG_IDLE);
     this.loadImages(this.IMAGES_WALKING);
@@ -89,12 +89,11 @@ IMAGES_LONG_IDLE = [
   }
 
   animate() {
-    this.moveCharacter();
-    this.moveCharacterImages();
+    setStoppableInterval(this.moveCharacter.bind(this), 1000 / 60);
+    setStoppableInterval(this.moveCharacterImages.bind(this), 100);
   }
 
   moveCharacter() {
-    setInterval(() => {
       this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.walkRight();
@@ -106,15 +105,12 @@ IMAGES_LONG_IDLE = [
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
       }
-    }, 1000 / 60);
   }
 
   moveCharacterImages() {
-    setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
         world.gameOver(0);
-        //world.isGameOver = true;
       }  else if (this.isHurt()) {
         this.playAnimationOnLoop(this.IMAGES_HURT);
       }
@@ -127,7 +123,6 @@ IMAGES_LONG_IDLE = [
           this.playAnimationOnLoop(this.IMAGES_IDLE);
         }
       }
-    }, 100);
   }
 
 walkLeft() {

@@ -1,4 +1,6 @@
+
 class Chicken extends MovableObject {
+
   height = 80;
   width = 80;
   y = 340;
@@ -24,18 +26,20 @@ class Chicken extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.img.src = this.IMAGE_DEAD;
-        this.chicken_sound.pause();
+        //this.chicken_sound.pause();
       } else {
         if (this.world && world.isGameOver == false && world.pause == false) {
           this.moveLeft();
         }
       }
     }, 1000 / 60);
-    setInterval(() => {
-      this.playAnimationOnLoop(this.IMAGES_WALKING);
-      //this.playChicken();
-    }, 100);
+    setStoppableInterval(this.chickenImages.bind(this), 100);
   }
+
+chickenImages() {
+  this.playAnimationOnLoop(this.IMAGES_WALKING);
+  //this.playChicken();
+}
 
   playChicken() {
     if (this.world && world.isGameOver == false && world.pause == false) {

@@ -7,8 +7,7 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
     "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
-
-  energy = 5;
+  otherDirection;
   offset = {
     top: 0,
     right: 0,
@@ -21,23 +20,22 @@ class ThrowableObject extends MovableObject {
     this.loadImages(this.IMAGES_ROTATION);
     this.x = x;
     this.y = y;
-    this.throw(otherDirection);
+    this.otherDirection = otherDirection;
+    this.throw();
   }
 
-  throw(otherDirection) {
-    if (otherDirection) {
-
-    }
+  throw() {
     this.speedY = 30;
     this.applyGravity();
-    setInterval(() => {
-      if (otherDirection) {
-        this.x -= 10;
-      } else {
-        this.x += 10;
-      }
-      
-      this.playAnimationOnLoop(this.IMAGES_ROTATION);
-    }, 30);
+    setStoppableInterval(this.bottleImages.bind(this), 30);
+  }
+
+  bottleImages() {
+    if (this.otherDirection) {
+      this.x -= 10;
+    } else {
+      this.x += 10;
+    }
+    this.playAnimationOnLoop(this.IMAGES_ROTATION);
   }
 }

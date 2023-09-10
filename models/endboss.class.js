@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
   world;
   speed = 5;
   energy = 15;
+  i = 0;
   offset = {
     top: 20,
     right: 20,
@@ -61,20 +62,21 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    let i = 0;
-    setInterval(() => {
-      if (this.isDead()) {
-        this.endbossDead();
-      } else if (this.isHurt()) {
-        this.endbossHurt();
-      } else if (this.world && this.world.character.x > 1600) {
-        this.endBossActing(i);
-        i++;
-      } else {
-        i = 0;
-        this.x = 2200;
-      }
-    }, 200);
+    setStoppableInterval(this.endBossAnimation.bind(this), 200);
+  }
+
+  endBossAnimation() {
+    if (this.isDead()) {
+      this.endbossDead();
+    } else if (this.isHurt()) {
+      this.endbossHurt();
+    } else if (this.world && this.world.character.x > 1600) {
+      this.endBossActing();
+      this.i++;
+    } else {
+      this.i = 0;
+      this.x = 2200;
+    }
   }
 
   endbossDead() {
@@ -86,9 +88,9 @@ class Endboss extends MovableObject {
     this.playAnimationOnLoop(this.IMAGES_HURT);
   }
 
-  endBossActing(i) {
+  endBossActing() {
     this.playSound(this.chicken_sound);
-    if (i < 10 && this.x - this.world.character.x > 200) {
+    if (this.i < 10 && this.x - this.world.character.x > 200) {
       this.playAnimationOnLoop(this.IMAGES_ALERT);
     } else {
       if (this.x - this.world.character.x > 80) {

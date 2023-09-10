@@ -1,11 +1,13 @@
 class MovableObject extends DrawableObject {
-  //super class for all objects that move   
+  //super class for all objects that move  
+ 
   speed = 0.5;
   otherDirection = false;
   speedY = 0;
   accelaration = 2.5;
-  energy = 100;
+  energy = 5;
   lastHit = 0;
+
 
   moveRight() {
     this.x += this.speed;
@@ -100,5 +102,6 @@ class MovableObject extends DrawableObject {
     //returns true if energy = 0
     return this.energy == 0;
   }
+
 
 }

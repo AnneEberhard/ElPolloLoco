@@ -254,6 +254,22 @@ class World {
         this.playerWon = true;
       }
     }, 1000);
+    setTimeout(() => {
+   // this.resetGame();
+    }, 2000);
+  }
+
+  resetGame() {
+    intervallIDs.forEach(clearInterval);
+    this.character = new Character();
+    this.level = level1;
+    this.camera_x = 0;
+    this.throwableObjects = [];
+    this.splashableObjects = [];
+    this.isGameOver = false;
+    this.enemySquashed = false;
+    this.playerWon = false;
+    this.pause = false;
   }
 
   //  try {

@@ -22,13 +22,11 @@ class SplashableObject extends MovableObject {
       this.loadImages(this.IMAGES_SPLASH);
       this.x = x;
       this.y = y;
-      this.splashImage();
+      setStoppableInterval(this.splashImage.bind(this), 100);
     }
   
     splashImage() {
-      setInterval( () => {
           this.playAnimationOnce(this.IMAGES_SPLASH);
-      }, 100)
     }
   }
   
