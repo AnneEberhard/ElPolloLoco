@@ -14,6 +14,7 @@ class World {
   endScreenLost = new Endscreen(0);
   endScreenWon = new Endscreen(1);
   endScreenPause = new Endscreen(2);
+  enemySquashed = false;
   playerWon = false;
   pause = false;
 
@@ -48,7 +49,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
     if (this.isGameOver) {
-      this.ctx.translate(-this.camera_x, 0); 
+      this.ctx.translate(-this.camera_x, 0);
       if (this.playerWon) {
         this.addToMap(this.endScreenWon);
         drawReStartButton();
@@ -77,7 +78,7 @@ class World {
       } else {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.endScreenPause);
-      } 
+      }
       //draw() will be executed continously according to
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
@@ -155,16 +156,16 @@ class World {
   }
 
   checkCollision() {
+    this.checkEnemySquashed();
     this.checkCollisionEnemy();
     this.checkCollisionCoin();
     this.checkCollisionBottle();
     this.checkCollisionBottleEnemy();
-    this.checkEnemySquashed();
   }
 
   checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !this.enemySquashed) {
         this.character.hit(this.character);
         this.statusBarHealth.setPercentage(this.character.energy);
       }
@@ -210,18 +211,24 @@ class World {
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
-      if (this.character.isColliding(enemy)) {
-//neue Logik???
+      if (enemy.isCollidingFromTop(this.character)) {
+        enemy.hit(enemy);
+        this.enemySquashed = true;
+        setTimeout(() => {
+          this.enemySquashed = false;
+        }, 1000);
       }
     }
   }
+
 
   checkThrow() {
     //this.throwableObjects.splice(0,1); only after a certain intervall if needed
     if (this.keyboard.D && this.character.bottlesCollected > 0) {
       let bottle = new ThrowableObject(
         this.character.x + 75,
-        this.character.y + 150
+        this.character.y + 150,
+        this.character.otherDirection
       );
       this.throwableObjects.push(bottle); //this is needed for drawing
       this.character.bottlesCollected -= 20;

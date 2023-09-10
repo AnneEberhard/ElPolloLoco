@@ -8,44 +8,49 @@ class Chicken extends MovableObject {
     "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
   ];
   IMAGE_DEAD = "img/3_enemies_chicken/chicken_normal/2_dead/dead.png";
-  chicken_sound = new Audio('audio/chickenShort.mp3');
+  chicken_sound = new Audio("audio/chickenShort.mp3");
   world;
   energy = 5;
-  
+
   constructor() {
     super().loadImages(this.IMAGES_WALKING);
     this.loadImage(this.IMAGE_DEAD);
-    this.x = 300+ Math.random()*1000;
-    this.speed = 0.15 + Math.random()*0.25;
+    this.x = 300 + Math.random() * 1000;
+    this.speed = 0.15 + Math.random() * 0.25;
     this.animate();
   }
- 
+
   animate() {
-    setInterval( () => {
-      if (this.world && world.isGameOver == false  && world.pause == false) {  
-      this.moveLeft();}
-    }, 1000 / 60)
-    this.chicken_sound.pause();
+    setInterval(() => {
+      if (this.isDead()) {
+        this.img.src = this.IMAGE_DEAD;
+        this.chicken_sound.pause();
+      } else {
+        if (this.world && world.isGameOver == false && world.pause == false) {
+          this.moveLeft();
+        }
+      }
+    }, 1000 / 60);
     setInterval(() => {
       this.playAnimationOnLoop(this.IMAGES_WALKING);
-      this.playChicken();
+      //this.playChicken();
     }, 100);
   }
 
-  playChicken() { if (this.world && world.isGameOver == false  && world.pause == false) {  
-    let distanceToCharacter = Math.abs(this.x);
-    let distanceToCamera = Math.abs(this.x + this.world.camera_x);
-    //let distancePepeCamera = Math.abs(this.world.character.x - this.world.camera_x);
-    //console.log('Pepe:', this.world.character.x);  
-   // console.log('Distanz zu Pepe:', distanceToCharacter);
-   // console.log('Huhn:', this.x); 
-    //console.log('Kamera:', this.world.camera_x);
-    //console.log('Distanz zu Kamera:', distanceToCamera); 
-    //console.log('Kamerdistanz:', distancePepeCamera); 
-    if (distanceToCharacter < 780 && distanceToCamera < 680) {
-    this.chicken_sound.play();
+  playChicken() {
+    if (this.world && world.isGameOver == false && world.pause == false) {
+      let distanceToCharacter = Math.abs(this.x);
+      let distanceToCamera = Math.abs(this.x + this.world.camera_x);
+      //let distancePepeCamera = Math.abs(this.world.character.x - this.world.camera_x);
+      //console.log('Pepe:', this.world.character.x);
+      // console.log('Distanz zu Pepe:', distanceToCharacter);
+      // console.log('Huhn:', this.x);
+      //console.log('Kamera:', this.world.camera_x);
+      //console.log('Distanz zu Kamera:', distanceToCamera);
+      //console.log('Kamerdistanz:', distancePepeCamera);
+      if (distanceToCharacter < 780 && distanceToCamera < 680) {
+        this.chicken_sound.play();
+      }
+    }
   }
-  }
- 
-}
 }

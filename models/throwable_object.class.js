@@ -8,27 +8,36 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
 
+  energy = 5;
   offset = {
     top: 0,
-    right:0,
-    bottom:0,
-    left:0
-  }
+    right: 0,
+    bottom: 0,
+    left: 0,
+  };
 
-  constructor(x,y) {
+  constructor(x, y, otherDirection) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.IMAGES_ROTATION);
     this.x = x;
     this.y = y;
-    this.throw();
+    this.throw(otherDirection);
   }
 
-  throw() {
+  throw(otherDirection) {
+    if (otherDirection) {
+
+    }
     this.speedY = 30;
     this.applyGravity();
-    setInterval( () => {
+    setInterval(() => {
+      if (otherDirection) {
+        this.x -= 10;
+      } else {
         this.x += 10;
-        this.playAnimationOnLoop(this.IMAGES_ROTATION);
-    }, 30)
+      }
+      
+      this.playAnimationOnLoop(this.IMAGES_ROTATION);
+    }, 30);
   }
 }
