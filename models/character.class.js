@@ -4,6 +4,8 @@ class Character extends MovableObject {
   height = 300;
   width = 150;
   energy = 100;
+  speed = 5;
+  actionTime;
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
     "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -62,7 +64,6 @@ IMAGES_LONG_IDLE = [
     "img/2_character_pepe/5_dead/D-57.png"
   ]
   world;
-  speed = 5;
   coinsCollected = 0;
   bottlesCollected = 0;
 
@@ -94,6 +95,7 @@ IMAGES_LONG_IDLE = [
   }
 
   moveCharacter() {
+    if (this.gameIsRunning()) {
       this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.walkRight();
@@ -104,25 +106,28 @@ IMAGES_LONG_IDLE = [
       this.world.camera_x = -this.x + 100;
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
-      }
+      }}
   }
 
   moveCharacterImages() {
+    if (this.gameIsRunning()) {
       if (this.isDead()) {
-        this.playAnimationOnce(this.IMAGES_DEAD);
+        this.playAnimation(this.IMAGES_DEAD);
         world.gameOver(0);
       }  else if (this.isHurt()) {
-        this.playAnimationOnLoop(this.IMAGES_HURT);
+        this.playAnimation(this.IMAGES_HURT);
       }
       else if (this.isAboveGround()) {
-        this.playAnimationOnLoop(this.IMAGES_JUMPING);
+        this.playAnimation(this.IMAGES_JUMPING);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimationOnLoop(this.IMAGES_WALKING);
+          this.playAnimation(this.IMAGES_WALKING);
+        } else if (this.timeCharacterMoved() < 5) {
+          this.playAnimation(this.IMAGES_IDLE);
         } else {
-          this.playAnimationOnLoop(this.IMAGES_IDLE);
+          this.playAnimation(this.IMAGES_LONG_IDLE);
         }
-      }
+      }}
   }
 
 walkLeft() {
@@ -137,4 +142,10 @@ walkRight() {
   this.playSound(this.walking_sound);
 }
 
+timeCharacterMoved() {
+  let timepassed = new Date().getTime() - this.actionTime; 
+    timepassed = timepassed / 1000; 
+    return timepassed; 
+}
+ 
 }

@@ -10,13 +10,12 @@ class World {
   statusBarCoin = new StatusbarCoin();
   throwableObjects = [];
   splashableObjects = [];
-  isGameOver = false;
   endScreenLost = new Endscreen(0);
   endScreenWon = new Endscreen(1);
   endScreenPause = new Endscreen(2);
   enemySquashed = false;
   playerWon = false;
-  pause = false;
+
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -48,37 +47,33 @@ class World {
     //picture is moved for the value of the variable camera_x on x-axis (to the left) and 0 on y-axis
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
-    if (this.isGameOver) {
+    if (isGameOver) {
       this.ctx.translate(-this.camera_x, 0);
       if (this.playerWon) {
         this.addToMap(this.endScreenWon);
-        drawReStartButton();
+        //drawReStartButton();
       } else {
         this.addToMap(this.endScreenLost);
-        drawReStartButton();
+        //drawReStartButton();
       }
     } else {
-      if (!this.pause) {
-        // -----------Space for fixed objects ---------------
-        this.ctx.translate(-this.camera_x, 0); //Back
-        this.addToMap(this.statusBarHealth);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarCoin);
-        drawFullScreen();
-        this.ctx.translate(this.camera_x, 0); // Forward
-        // -----------End of Space for fixed objects ---------------
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.splashableObjects);
-        this.ctx.translate(-this.camera_x, 0);
-        //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
-      } else {
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.endScreenPause);
-      }
+      // -----------Space for fixed objects ---------------
+      this.ctx.translate(-this.camera_x, 0); //Back
+      this.addToMap(this.statusBarHealth);
+      this.addToMap(this.statusBarBottle);
+      this.addToMap(this.statusBarCoin);
+      drawFullScreen();
+      this.ctx.translate(this.camera_x, 0); // Forward
+      // -----------End of Space for fixed objects ---------------
+      this.addObjectsToMap(this.level.coins);
+      this.addObjectsToMap(this.level.bottles);
+      this.addToMap(this.character);
+      this.addObjectsToMap(this.level.enemies);
+      this.addObjectsToMap(this.throwableObjects);
+      this.addObjectsToMap(this.splashableObjects);
+      this.ctx.translate(-this.camera_x, 0);
+      //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
+
       //draw() will be executed continously according to
       let self = this; //needed since this doesn't work in the function below
       requestAnimationFrame(function () {
@@ -144,55 +139,46 @@ class World {
       this.checkCollision();
       this.checkThrow();
       this.checkPause();
+      this.checkActionTime();
     }, 200);
   }
 
   checkPause() {
     if (this.keyboard.P) {
-      this.pause = true;
+      pause = true;
     } else {
-      this.pause = false;
+      pause = false;
     }
   }
+
+  checkActionTime() {
+    if (keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE || keyboard.D) {
+      this.character.actionTime = new Date().getTime();
+    }
+    }
+
 
   checkCollision() {
+    this.checkCollecting(this.level.coins, 'coinsCollected', this.statusBarCoin);
+    this.checkCollecting(this.level.bottles, 'bottlesCollected', this.statusBarBottle);
     this.checkEnemySquashed();
-    this.checkCollisionEnemy();
-    this.checkCollisionCoin();
-    this.checkCollisionBottle();
     this.checkCollisionBottleEnemy();
+    this.checkCollisionEnemy();
   }
 
-  checkCollisionEnemy() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !this.enemySquashed) {
-        this.character.hit(this.character);
-        this.statusBarHealth.setPercentage(this.character.energy);
-      }
-    });
-  }
 
-  checkCollisionCoin() {
-    for (let i = 0; i < this.level.coins.length; i++) {
-      let coin = this.level.coins[i];
-      if (this.character.isColliding(coin)) {
-        this.level.coins.splice(i, 1);
-        this.character.coinsCollected += 20;
-        this.statusBarCoin.setPercentage(this.character.coinsCollected);
-      }
+  checkCollecting(array, collectedProperty, bar) {
+    for (let i = 0; i < array.length; i++) {
+        let item = array[i];
+        if (this.character.isColliding(item)) {
+            array.splice(i, 1);
+            this.character[collectedProperty] += 20;
+            bar.setPercentage(this.character[collectedProperty]);
+        }
     }
-  }
+}
 
-  checkCollisionBottle() {
-    for (let i = 0; i < this.level.bottles.length; i++) {
-      let bottle = this.level.bottles[i];
-      if (this.character.isColliding(bottle)) {
-        this.level.bottles.splice(i, 1);
-        this.character.bottlesCollected += 20;
-        this.statusBarBottle.setPercentage(this.character.bottlesCollected);
-      }
-    }
-  }
+
 
   checkCollisionBottleEnemy() {
     if (this.throwableObjects.length > 0) {
@@ -208,10 +194,11 @@ class World {
     }
   }
 
+
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
-      if (enemy.isCollidingFromTop(this.character)) {
+      if (this.character.isColliding(enemy) && this.character.isAboveGround() && enemy instanceof Chicken) {
         enemy.hit(enemy);
         this.enemySquashed = true;
         setTimeout(() => {
@@ -219,6 +206,15 @@ class World {
         }, 1000);
       }
     }
+  }
+
+  checkCollisionEnemy() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy) && !this.enemySquashed) {
+        this.character.hit(this.character);
+        this.statusBarHealth.setPercentage(this.character.energy);
+      }
+    });
   }
 
 
@@ -239,6 +235,7 @@ class World {
     }
   }
 
+
   splash(x, y) {
     let bottle = new SplashableObject(x + 80, y + 80);
     this.splashableObjects.push(bottle); //this is needed for drawing
@@ -248,28 +245,30 @@ class World {
   }
 
   gameOver(x) {
+    if (x == 1) {
+      this.playerWon = true;
+    } else {
+      this.playerWon = false;
+    }
     setTimeout(() => {
-      this.isGameOver = true;
-      if ((x = 1)) {
-        this.playerWon = true;
-      }
+      isGameOver = true;
+      intervallIDs.forEach(clearInterval);
     }, 1000);
     setTimeout(() => {
-   // this.resetGame();
+      //this.resetGame();
     }, 2000);
   }
 
   resetGame() {
-    intervallIDs.forEach(clearInterval);
-    this.character = new Character();
+    //clear Level?
+    this.character.energy = 100;
+    this.character.x = 100;
     this.level = level1;
     this.camera_x = 0;
-    this.throwableObjects = [];
-    this.splashableObjects = [];
-    this.isGameOver = false;
+    isGameOver = false;
     this.enemySquashed = false;
     this.playerWon = false;
-    this.pause = false;
+    pause = false;
   }
 
   //  try {

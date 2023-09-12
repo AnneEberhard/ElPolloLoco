@@ -1,6 +1,4 @@
-
 class Chicken extends MovableObject {
-
   height = 80;
   width = 80;
   y = 340;
@@ -23,26 +21,30 @@ class Chicken extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (this.isDead()) {
-        this.img.src = this.IMAGE_DEAD;
-        //this.chicken_sound.pause();
-      } else {
-        if (this.world && world.isGameOver == false && world.pause == false) {
-          this.moveLeft();
-        }
-      }
-    }, 1000 / 60);
+    setStoppableInterval(this.chickenMoving.bind(this), 1000 / 60);
     setStoppableInterval(this.chickenImages.bind(this), 100);
   }
 
-chickenImages() {
-  this.playAnimationOnLoop(this.IMAGES_WALKING);
-  //this.playChicken();
-}
+  chickenMoving() {
+    if (!this.isDead() && this.gameIsRunning()) {
+      this.moveLeft();
+    }
+  }
+
+  chickenImages() {
+    if (this.isDead()) {
+      this.img.src = this.IMAGE_DEAD;
+      //this.chicken_sound.pause();
+    } else {
+      if (this.gameIsRunning()) {
+        this.playAnimation(this.IMAGES_WALKING);
+        //this.playChicken();
+      }
+    }
+  }
 
   playChicken() {
-    if (this.world && world.isGameOver == false && world.pause == false) {
+    if (this.gameIsRunning()) {
       let distanceToCharacter = Math.abs(this.x);
       let distanceToCamera = Math.abs(this.x + this.world.camera_x);
       //let distancePepeCamera = Math.abs(this.world.character.x - this.world.camera_x);

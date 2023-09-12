@@ -36,6 +36,6 @@ class ThrowableObject extends MovableObject {
     } else {
       this.x += 10;
     }
-    this.playAnimationOnLoop(this.IMAGES_ROTATION);
+    this.playAnimation(this.IMAGES_ROTATION);
   }
 }

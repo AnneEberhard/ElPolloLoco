@@ -80,25 +80,26 @@ class Endboss extends MovableObject {
   }
 
   endbossDead() {
-    this.playAnimationOnLoop(this.IMAGES_DEAD);
+    this.playAnimation(this.IMAGES_DEAD);
     world.gameOver(1);
   }
 
   endbossHurt() {
-    this.playAnimationOnLoop(this.IMAGES_HURT);
+    this.playAnimation(this.IMAGES_HURT);
   }
 
   endBossActing() {
+    if (this.gameIsRunning()) {
     this.playSound(this.chicken_sound);
     if (this.i < 10 && this.x - this.world.character.x > 200) {
-      this.playAnimationOnLoop(this.IMAGES_ALERT);
+      this.playAnimation(this.IMAGES_ALERT);
     } else {
       if (this.x - this.world.character.x > 80) {
-        this.playAnimationOnLoop(this.IMAGES_WALKING);
+        this.playAnimation(this.IMAGES_WALKING);
         this.moveLeft();
       } else {
-        this.playAnimationOnLoop(this.IMAGES_ATTACK);
+        this.playAnimation(this.IMAGES_ATTACK);
       }
     }
-  }
+  }}
 }
