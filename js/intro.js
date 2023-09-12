@@ -131,11 +131,24 @@ function drawFullScreen() {
  * @param {*} = no param
  */
 function goFullScreen() {
-  canvas = document.getElementById("canvas");
-  if(canvas.requestFullScreen)
-      canvas.requestFullScreen();
-  else if(canvas.webkitRequestFullScreen)
-      canvas.webkitRequestFullScreen();
-  else if(canvas.mozRequestFullScreen)
-      canvas.mozRequestFullScreen();
+  element = document.getElementById("fullscreen");
+  enterFullScreen(element);
+}
+
+function enterFullScreen(element) {
+  if(element.requestFullScreen)
+  element.requestFullScreen();
+  else if(element.webkitRequestFullScreen)
+  element.webkitRequestFullScreen();
+  else if(element.mozRequestFullScreen)
+  element.mozRequestFullScreen();
+}
+
+function exitFullscreen(element) {
+  if(element.exitFullscreen)
+  element.exitFullscreen();
+  else if(element.webkitExitFullscreen)
+  element.webkitExitFullscreen();
+  else if(element.mozExitFullscreen)
+  element.mozExitFullscreen();
 }
