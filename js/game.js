@@ -33,6 +33,7 @@ function toggleFullscreen() {
   isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
 }
 
+
 /**
  * This function replaces the respective icons for enter and exit fullscreen
  * @param {*} = no param
