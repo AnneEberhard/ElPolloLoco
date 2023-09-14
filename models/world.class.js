@@ -12,10 +12,8 @@ class World {
   splashableObjects = [];
   endScreenLost = new Endscreen(0);
   endScreenWon = new Endscreen(1);
-  endScreenPause = new Endscreen(2);
   enemySquashed = false;
   playerWon = false;
-
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -154,30 +152,34 @@ class World {
     if (keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE || keyboard.D) {
       this.character.actionTime = new Date().getTime();
     }
-    }
-
+  }
 
   checkCollision() {
-    this.checkCollecting(this.level.coins, 'coinsCollected', this.statusBarCoin);
-    this.checkCollecting(this.level.bottles, 'bottlesCollected', this.statusBarBottle);
+    this.checkCollecting(
+      this.level.coins,
+      "coinsCollected",
+      this.statusBarCoin
+    );
+    this.checkCollecting(
+      this.level.bottles,
+      "bottlesCollected",
+      this.statusBarBottle
+    );
     this.checkEnemySquashed();
     this.checkCollisionBottleEnemy();
     this.checkCollisionEnemy();
   }
 
-
   checkCollecting(array, collectedProperty, bar) {
     for (let i = 0; i < array.length; i++) {
-        let item = array[i];
-        if (this.character.isColliding(item)) {
-            array.splice(i, 1);
-            this.character[collectedProperty] += 20;
-            bar.setPercentage(this.character[collectedProperty]);
-        }
+      let item = array[i];
+      if (this.character.isColliding(item)) {
+        array.splice(i, 1);
+        this.character[collectedProperty] += 20;
+        bar.setPercentage(this.character[collectedProperty]);
+      }
     }
-}
-
-
+  }
 
   checkCollisionBottleEnemy() {
     if (this.throwableObjects.length > 0) {
@@ -193,16 +195,17 @@ class World {
     }
   }
 
-
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
-      if (this.character.isColliding(enemy) && this.character.isAboveGround() && enemy instanceof Chicken) {
-        enemy.hit(enemy);
-        this.enemySquashed = true;
-        setTimeout(() => {
-          this.enemySquashed = false;
-        }, 1000);
+      if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+        if (enemy instanceof Chicken || ChickenSmall) {
+          enemy.hit(enemy);
+          this.enemySquashed = true;
+          setTimeout(() => {
+            this.enemySquashed = false;
+          }, 1000);
+        }
       }
     }
   }
@@ -215,7 +218,6 @@ class World {
       }
     });
   }
-
 
   checkThrow() {
     //this.throwableObjects.splice(0,1); only after a certain intervall if needed
@@ -233,7 +235,6 @@ class World {
       }, 2000);
     }
   }
-
 
   splash(x, y) {
     let bottle = new SplashableObject(x + 80, y + 80);
