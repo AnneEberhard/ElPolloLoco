@@ -77,14 +77,3 @@ function clearCanvas(canvas) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-/**
- * This function restarts without animation
- * @param {*} = no param
- */
-function restart() {
-  const canvas = document.getElementById("canvas");
-  clearCanvas(canvas);
-  const startButton = document.getElementById("reStartButton");
-  startButton.style.display = "none";
-  world = new World(canvas, keyboard);
-}

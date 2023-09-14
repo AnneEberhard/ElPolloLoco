@@ -3,7 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let introImage;
 let introImageX = 0;
-let soundIsOn = true; 
+let soundIsOn = false; 
 
 
 /**
@@ -76,4 +76,23 @@ function soundOn() {
   console.log(soundIsOn);
 }
 
+/**
+ * This function displays the Restart Button
+ * @param {*} = no param
+ */
+function showReStartButton() {
+  document.getElementById("reStartButton").classList.remove("d-none");
+}
+
+/**
+ * This function restarts without animation
+ * @param {*} = no param
+ */
+function restart() {
+  const canvas = document.getElementById("canvas");
+  clearCanvas(canvas);
+  const startButton = document.getElementById("reStartButton");
+  startButton.style.display = "none";
+  world = new World(canvas, keyboard);
+}
 

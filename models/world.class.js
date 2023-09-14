@@ -49,10 +49,10 @@ class World {
       this.ctx.translate(-this.camera_x, 0);
       if (this.playerWon) {
         this.addToMap(this.endScreenWon);
-        //drawReStartButton();
+        showReStartButton();
       } else {
         this.addToMap(this.endScreenLost);
-        //drawReStartButton();
+        showReStartButton();
       }
     } else {
       // -----------Space for fixed objects ---------------
@@ -255,7 +255,7 @@ class World {
       intervallIDs.forEach(clearInterval);
     }, 1000);
     setTimeout(() => {
-      //this.resetGame();
+      this.resetGame();
     }, 2000);
   }
 
