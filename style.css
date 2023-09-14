@@ -132,11 +132,7 @@ a:hover {
   cursor: pointer;
  }
 
- #exit {
-  cursor:pointer;
- }
-
- #enter {
+ .hover {
   cursor:pointer;
  }
 

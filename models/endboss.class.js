@@ -90,7 +90,7 @@ class Endboss extends MovableObject {
 
   endBossActing() {
     if (this.gameIsRunning()) {
-    this.playSound(this.chicken_sound);
+      this.playSound(this.chicken_sound);
     if (this.i < 10 && this.x - this.world.character.x > 200) {
       this.playAnimation(this.IMAGES_ALERT);
     } else {

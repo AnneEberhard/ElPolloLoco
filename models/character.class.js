@@ -122,7 +122,7 @@ IMAGES_LONG_IDLE = [
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
-        } else if (this.timeCharacterMoved() < 5) {
+        } else if (this.timeCharacterMoved() < 10) {
           this.playAnimation(this.IMAGES_IDLE);
         } else {
           this.playAnimation(this.IMAGES_LONG_IDLE);
@@ -140,6 +140,11 @@ walkRight() {
   this.moveRight();
   this.otherDirection = false;
   this.playSound(this.walking_sound);
+}
+
+jump() {
+  this.speedY = 30;
+  this.playSound(this.jumping_sound);
 }
 
 timeCharacterMoved() {

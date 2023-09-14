@@ -16,15 +16,10 @@ class MovableObject extends DrawableObject {
     this.x -= this.speed;
   }
 
-  jump() {
-    this.speedY = 30;
-    this.playSound(this.jumping_sound);
-  }
-
   playAnimation(images) {
     let i = this.currentImage % images.length;
     this.getAnimation(images, i);
-  }
+  } 
 
   playAnimationOnce(images) {
     let i = images.length - 1;
@@ -38,8 +33,9 @@ class MovableObject extends DrawableObject {
   }
 
   playSound(sound) {
-    if (this.world && world.isGameOver == false) {
-      sound.play();
+    if (soundIsOn) {
+      console.log('sound');
+      sound.play(sound);
     }
   }
 

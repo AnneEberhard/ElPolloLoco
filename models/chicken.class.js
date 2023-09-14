@@ -34,11 +34,11 @@ class Chicken extends MovableObject {
   chickenImages() {
     if (this.isDead()) {
       this.img.src = this.IMAGE_DEAD;
-      //this.chicken_sound.pause();
+      this.chicken_sound.pause();
     } else {
       if (this.gameIsRunning()) {
         this.playAnimation(this.IMAGES_WALKING);
-        //this.playChicken();
+        this.playChicken();
       }
     }
   }
@@ -54,7 +54,7 @@ class Chicken extends MovableObject {
       //console.log('Kamera:', this.world.camera_x);
       //console.log('Distanz zu Kamera:', distanceToCamera);
       //console.log('Kamerdistanz:', distancePepeCamera);
-      if (distanceToCharacter < 780 && distanceToCamera < 680) {
+      if (distanceToCharacter < 780 && distanceToCamera < 680 && soundIsOn) {
         this.chicken_sound.play();
       }
     }

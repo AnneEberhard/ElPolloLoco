@@ -37,20 +37,22 @@
     <div id="fullscreen">
       <h1>El Pollo Loco</h1>
       <button id="startButton" onclick="start()">Start</button>
-      <button id="reStartButton" class="d-none" onclick="restart()">Re-Start</button>
+      <button id="reStartButton" class="d-none" onclick="restart()">
+        Re-Start
+      </button>
       <canvas id="canvas" width="720" height="480">
         Your browser does not support the canvas element.</canvas
       >
       <div id="subtext">
         <div class="subtextContainer">
           <div class="subtext">
-            <div class="keyIcon"><img src="img/icon/arrow_left.png"></div>
-            <div> / </div>
-            <div class="keyIcon"><img src="img/icon/arrow_right.png"></div>
+            <div class="keyIcon"><img src="img/icon/arrow_left.png" /></div>
+            <div>/</div>
+            <div class="keyIcon"><img src="img/icon/arrow_right.png" /></div>
             <div>Walk</div>
           </div>
           <div class="subtext">
-            <div class="keyIcon"><img src="img/icon/space.png"></div>
+            <div class="keyIcon"><img src="img/icon/space.png" /></div>
             <div>Jump</div>
           </div>
           <div class="subtext">
@@ -58,9 +60,19 @@
             <div>Throw</div>
           </div>
           <div class="subtext">
-            <div class="keyIcon padding_2" onclick="toggleFullscreen()">
-              <img id="enter" src="img/icon/enter_fullscreen.png">
-              <img id="exit" class="d-none" src="img/icon/exit_fullscreen.png">
+            <div class="hover" onclick="toggleSound()">
+              <img id="soundOn" src="img/icon/sound_on.png" />
+              <img id="soundOff" class="d-none" src="img/icon/sound_off.png" />
+            </div>
+          </div>
+          <div class="subtext">
+            <div class="hover" onclick="toggleFullscreen()">
+              <img id="enter" src="img/icon/enter_fullscreen.png" />
+              <img
+                id="exit"
+                class="d-none"
+                src="img/icon/exit_fullscreen.png"
+              />
             </div>
           </div>
         </div>

@@ -2,7 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let introImage;
-let introImageX = 0; 
+let introImageX = 0;
+let soundIsOn = true; 
 
 
 /**
@@ -19,9 +20,9 @@ function init() {
  * @param {*} = no param
  */
 function toggleFullscreen() {
-  var element = document.getElementById("fullscreen");
+  let element = document.getElementById("fullscreen");
 
-  var isFullscreen = document.webkitIsFullScreen || document.mozFullScreen || false;
+  let isFullscreen = document.webkitIsFullScreen || document.mozFullScreen || false;
 
   element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || function() {
     return false;
@@ -49,55 +50,30 @@ function updateFullscreenIcons() {
   }
 }
 
+function toggleSound() {
 
-
-
-
-
-/**
- * This function enters fullscreen modus
- * @param {*} = no param
- */
-function enterFullScreen() {
-  console.log('enterfullscreen');
-  debugger;
-  document.getElementById("enter").classList.add("d-none");
-  document.getElementById("exit").classList.remove("d-none");
-  element = document.getElementById("fullscreen");
-  if(element.requestFullScreen)
-  element.requestFullScreen();
-  else if(element.webkitRequestFullScreen)
-  element.webkitRequestFullScreen();
-  else if(element.mozRequestFullScreen)
-  element.mozRequestFullScreen();
-}
-
-/**
- * This function exists fullscreen modus
- * @param {*} = no param
- */
-function endFullscreen() {
-  console.log('exitfullscreen');
-  debugger;
-  if (isFullScreen()) {
-    document.getElementById("exit").classList.add("d-none");
-    document.getElementById("enter").classList.remove("d-none");
-    element = document.getElementById("fullscreen");
-    if(element.exitFullscreen)
-      element.exitFullscreen();
-    else if(element.webkitExitFullscreen)
-      element.webkitExitFullscreen();
-    else if(element.mozExitFullscreen)
-      element.mozExitFullscreen();
+  if(soundIsOn) {
+    soundOff();
+  } else {
+    soundOn();
   }
 }
 
-function isFullScreen() {
-  return (
-    document.fullscreenElement ||
-    document.webkitFullscreenElement ||
-    document.mozFullScreenElement
-  );
+function soundOff() {
+  soundIsOn = false;
+  document.getElementById("soundOn").classList.add("d-none");
+  document.getElementById("soundOff").classList.remove("d-none");
+  console.log('sound off');
+  console.log(soundIsOn);
+ 
+}
+
+function soundOn() {
+  soundIsOn = true;
+  document.getElementById("soundOff").classList.add("d-none");
+  document.getElementById("soundOn").classList.remove("d-none");
+  console.log('sound on');
+  console.log(soundIsOn);
 }
 
 

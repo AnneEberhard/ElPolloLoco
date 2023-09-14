@@ -80,6 +80,61 @@ function checkCollectingAll() {
       document.body.appendChild(startButton);
     }
 
+
+
+
+/**
+ * This function enters fullscreen modus
+ * @param {*} = no param
+ */
+function enterFullScreen() {
+  console.log('enterfullscreen');
+  debugger;
+  document.getElementById("enter").classList.add("d-none");
+  document.getElementById("exit").classList.remove("d-none");
+  element = document.getElementById("fullscreen");
+  if(element.requestFullScreen)
+  element.requestFullScreen();
+  else if(element.webkitRequestFullScreen)
+  element.webkitRequestFullScreen();
+  else if(element.mozRequestFullScreen)
+  element.mozRequestFullScreen();
+}
+
+function playSound(sound) {
+  if (this.world && world.isGameOver == false) {
+    console.log('sound');
+    sound.play();
+  }
+}
+
+/**
+ * This function exists fullscreen modus
+ * @param {*} = no param
+ */
+function endFullscreen() {
+  console.log('exitfullscreen');
+  debugger;
+  if (isFullScreen()) {
+    document.getElementById("exit").classList.add("d-none");
+    document.getElementById("enter").classList.remove("d-none");
+    element = document.getElementById("fullscreen");
+    if(element.exitFullscreen)
+      element.exitFullscreen();
+    else if(element.webkitExitFullscreen)
+      element.webkitExitFullscreen();
+    else if(element.mozExitFullscreen)
+      element.mozExitFullscreen();
+  }
+}
+
+function isFullScreen() {
+  return (
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement
+  );
+}
     //Back-up HTML Code:
     //<img id="enter" src="img/icon/enter_fullscreen.png" onclick="enterFullScreen()">
     //<img id="exit" src="img/icon/exit_fullscreen.png" onclick="exitFullscreen()"> //macht Probleme wegen Namen
