@@ -38,3 +38,51 @@ function checkCollectingAll() {
     this.img = this.imageCache[path];
     this.currentImage++;
   }
+  /**
+ * This function adds icon and onlick for fullscreen
+ * @param {*} = no param
+ */
+  function drawFullScreenIcon() {
+    const fullscreenIcon = document.createElement("img");
+    fullscreenIcon.src = "img/icon/icons8-vollbild-50.png";
+    fullscreenIcon.classList.add("full");
+    fullscreenIcon.onclick = goFullScreen;
+    document.body.appendChild(fullscreenIcon);
+  }
+
+  function goFullScreen() {
+    element = document.getElementById("fullscreen");
+    enterFullScreen(element);
+  }
+
+    /**
+   * This function draws the start Button on the intro picture
+   * @param {*} = no param
+   */
+    function drawStartButton() {
+      const startButton = document.createElement("button");
+      startButton.textContent = "Start";
+      startButton.classList.add("startButton");
+      startButton.onclick = start;
+      document.body.appendChild(startButton);
+    }
+    
+  
+    /**
+     * This function draws the Re-start Button on the extro picture
+     * @param {*} = no param
+     */
+    function drawReStartButton() {
+      const startButton = document.createElement("button");
+      startButton.textContent = "Re-Start";
+      startButton.classList.add("reStartButton");
+      startButton.onclick = restart;
+      document.body.appendChild(startButton);
+    }
+
+    //Back-up HTML Code:
+    //<img id="enter" src="img/icon/enter_fullscreen.png" onclick="enterFullScreen()">
+    //<img id="exit" src="img/icon/exit_fullscreen.png" onclick="exitFullscreen()"> //macht Probleme wegen Namen
+   
+    //<img id="enter" src="img/icon/enter_fullscreen.png" onclick="enterFullScreen()">
+    //<img id="exit" class="d-none" src="img/icon/exit_fullscreen.png" onclick="endFullscreen()">

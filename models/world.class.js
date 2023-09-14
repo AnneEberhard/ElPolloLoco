@@ -62,7 +62,6 @@ class World {
       this.addToMap(this.statusBarHealth);
       this.addToMap(this.statusBarBottle);
       this.addToMap(this.statusBarCoin);
-      drawFullScreen();
       this.ctx.translate(this.camera_x, 0); // Forward
       // -----------End of Space for fixed objects ---------------
       this.addObjectsToMap(this.level.coins);

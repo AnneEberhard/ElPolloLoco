@@ -25,9 +25,9 @@ canvas {
   background-color: black;
 }
 
-.subtext {
+.subtextContainer {
   display: flex;
-  width: 60vw;
+  width: 80vw;
   justify-content: center;
   gap: 51px;
   margin-top: 8px;
@@ -40,12 +40,32 @@ canvas {
   letter-spacing: 2px;
   text-align: center;
 }
+
+.subtext {
+  display:flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.keyIcon {
+  border-radius: 4px;
+  border: 1px solid rgb(255, 206, 21);
+  display: flex;
+  text-align: center;
+  font-weight: 1;
+  width: 24px;
+  justify-content: center;
+}
+
+.padding_2 {
+  padding-left: 2px;
+  padding-top: 2px
+}
+
 button {
   position: absolute;
-  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /*background-color: rgb(191,0,0);*/
   background-color: black;
   color: rgb(255, 206, 21);
   font-size: 48px;
@@ -59,8 +79,12 @@ button {
   z-index: 999;
 }
 
-.startButton {
+#startButton {
   top: 30%;
+}
+
+#reStartButton {
+  top: 50%;
 }
 
 button:hover {
@@ -105,4 +129,16 @@ a:hover {
 
  .full:hover {
   cursor: pointer;
+ }
+
+ #exit {
+  cursor:pointer;
+ }
+
+ #enter {
+  cursor:pointer;
+ }
+
+ .d-none {
+  display:none;
  }

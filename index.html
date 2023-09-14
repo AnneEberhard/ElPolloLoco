@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El_Pollo_Loco</title>
-    <link rel="icon" href="img/4_enemie_boss_chicken/1_walk/G1.png">
+    <link rel="icon" href="img/4_enemie_boss_chicken/1_walk/G1.png" />
     <link rel="stylesheet" href="./style.css" />
     <!--PAY ATTENTION TO ORDER-->
     <script src="./js/interval.js"></script>
@@ -31,26 +31,52 @@
     <script src="./js/keyboard.js"></script>
     <script src="./js/intro.js"></script>
     <script src="./js/game.js"></script>
-
   </head>
   <body onload="init()">
     <div id="fullscreen">
-    <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="720" height="480"> Your browser does not support the canvas element.</canvas>
-    <div id = "subtext">
-      <div class="subtext"> 
-        <div>Arrows Left/Right = Walk</div>
-        <div>Space = Jump</div>
-        <div>D = Throw Tabasco</div>
+      <h1>El Pollo Loco</h1>
+      <button id="startButton" onclick="start()">Start</button>
+      <button id="reStartButton" class="d-none" onclick="restart()">Re-Start</button>
+      <canvas id="canvas" width="720" height="480">
+        Your browser does not support the canvas element.</canvas
+      >
+      <div id="subtext">
+        <div class="subtextContainer">
+          <div class="subtext">
+            <div class="keyIcon"><img src="img/icon/arrow_left.png"></div>
+            <div> / </div>
+            <div class="keyIcon"><img src="img/icon/arrow_right.png"></div>
+            <div>Walk</div>
+          </div>
+          <div class="subtext">
+            <div class="keyIcon"><img src="img/icon/space.png"></div>
+            <div>Jump</div>
+          </div>
+          <div class="subtext">
+            <div class="keyIcon padding_2">D</div>
+            <div>Throw</div>
+          </div>
+          <div class="subtext">
+            <div class="keyIcon padding_2" onclick="toggleFullscreen()">
+              <img id="enter" src="img/icon/enter_fullscreen.png">
+              <img id="exit" class="d-none" src="img/icon/exit_fullscreen.png">
+            </div>
+          </div>
+        </div>
+        <div class="subtextContainer">
+          <div class="subtext">
+            <div class="keyIcon padding_2">P</div>
+            <div>Pause</div>
+          </div>
+          <div class="subtext">
+            <div class="keyIcon padding_2">W</div>
+            <div>Resume</div>
+          </div>
+          <div class="subtext">
+            <a href="impressum.html">Impressum</a>
+          </div>
+        </div>
       </div>
-      <div class="subtext"> 
-        <div>P = Pause Game</div>
-        <div>W = Resume Game</div>
-        <a href="impressum.html">Impressum</a>
-      </div>
-
     </div>
-  </div>
-
   </body>
 </html>
