@@ -27,7 +27,7 @@ canvas {
 
 .subtextContainer {
   display: flex;
-  width: 80vw;
+  width: 720px;
   justify-content: center;
   gap: 51px;
   margin-top: 8px;
@@ -39,6 +39,7 @@ canvas {
   border-radius: 5px;
   letter-spacing: 2px;
   text-align: center;
+  box-sizing: border-box
 }
 
 .subtext {
