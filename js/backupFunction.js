@@ -108,6 +108,23 @@ function playSound(sound) {
   }
 }
 
+  
+function playChicken(sound) {
+  if (this.gameIsRunning()) {
+    let distanceToCharacter = this.world.character.x - this.x;
+    //let distancePepeCamera = Math.abs(this.world.character.x - this.world.camera_x);
+    //console.log('Pepe:', this.world.character.x);
+    //console.log('Distanz zu Pepe:', distanceToCharacter);
+    //console.log('Huhn:', this.x);
+    //console.log('Kamera:', this.world.camera_x);
+    //console.log('Distanz zu Kamera:', distanceToCamera);
+    //console.log('Kamerdistanz:', distancePepeCamera);
+    if (distanceToCharacter < 200 && distanceToCharacter > -780  && soundIsOn) {
+      sound.play();
+    }
+  }
+}
+
 /**
  * This function exists fullscreen modus
  * @param {*} = no param

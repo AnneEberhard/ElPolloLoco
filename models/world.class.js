@@ -197,7 +197,7 @@ class World {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
       if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-        if (enemy instanceof Chicken || ChickenSmall) {
+        if (enemy instanceof Chicken) {
           enemy.hit(enemy);
           this.enemySquashed = true;
           setTimeout(() => {

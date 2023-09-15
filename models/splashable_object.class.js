@@ -9,6 +9,7 @@ class SplashableObject extends MovableObject {
       "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
       "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
     ];
+    splashing_sound = new Audio("audio/throw.mp3");
   
     offset = {
       top: 20,
@@ -23,6 +24,7 @@ class SplashableObject extends MovableObject {
       this.x = x;
       this.y = y;
       setStoppableInterval(this.splashImage.bind(this), 100);
+      this.playSound(this.splashing_sound);
     }
   
     splashImage() {

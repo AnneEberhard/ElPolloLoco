@@ -92,4 +92,6 @@ class MovableObject extends DrawableObject {
   gameIsRunning() {
     return (isGameOver == false && pause == false && this.world);
   }
+
+
 }

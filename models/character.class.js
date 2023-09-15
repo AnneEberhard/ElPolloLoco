@@ -76,6 +76,7 @@ IMAGES_LONG_IDLE = [
 
   walking_sound = new Audio("audio/running.mp3");
   jumping_sound = new Audio("audio/jump.mp3");
+  hurting_sound = new Audio("audio/ow.mp3");
 
   constructor() {
     super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png"); 
@@ -116,12 +117,15 @@ IMAGES_LONG_IDLE = [
         world.gameOver(0);
       }  else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+        this.playSound(this.hurting_sound);
       }
       else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
+        this.playSound(this.jumping_sound);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
+          this.playSound(this.walking_sound);
         } else if (this.timeCharacterMoved() < 10) {
           this.playAnimation(this.IMAGES_IDLE);
         } else {
@@ -133,18 +137,15 @@ IMAGES_LONG_IDLE = [
 walkLeft() {
   this.moveLeft();
   this.otherDirection = true;
-  this.playSound(this.walking_sound);
 }
 
 walkRight() {
   this.moveRight();
   this.otherDirection = false;
-  this.playSound(this.walking_sound);
 }
 
 jump() {
   this.speedY = 30;
-  this.playSound(this.jumping_sound);
 }
 
 timeCharacterMoved() {

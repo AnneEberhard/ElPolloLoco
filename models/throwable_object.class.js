@@ -14,6 +14,7 @@ class ThrowableObject extends MovableObject {
     bottom: 0,
     left: 0,
   };
+  throwing_sound = new Audio("audio/throw.mp3");
 
   constructor(x, y, otherDirection) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
@@ -37,5 +38,6 @@ class ThrowableObject extends MovableObject {
       this.x += 10;
     }
     this.playAnimation(this.IMAGES_ROTATION);
+    //this.playSound(this.throwing_sound);
   }
 }
