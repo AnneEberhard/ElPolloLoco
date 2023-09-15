@@ -51,7 +51,6 @@ function updateFullscreenIcons() {
 }
 
 function toggleSound() {
-
   if(soundIsOn) {
     soundOff();
   } else {
@@ -81,7 +80,6 @@ function soundOn() {
  * @param {*} = no param
  */
 function showReStartButton() {
-  debugger;
   document.getElementById("reStartButton").classList.remove("d-none");
 }
 
