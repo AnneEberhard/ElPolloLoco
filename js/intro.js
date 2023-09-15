@@ -39,6 +39,7 @@ function start() {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
   document.getElementById("startButton").classList.add("d-none");
+  createLevel();
   animateOut();
 }
 
@@ -65,6 +66,7 @@ function animateOut() {
     requestAnimationFrame(animateOut);
   } else {
     world = new World(canvas, keyboard);
+  
   }
 }
 

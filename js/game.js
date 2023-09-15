@@ -81,6 +81,7 @@ function soundOn() {
  * @param {*} = no param
  */
 function showReStartButton() {
+  debugger;
   document.getElementById("reStartButton").classList.remove("d-none");
 }
 
@@ -91,8 +92,7 @@ function showReStartButton() {
 function restart() {
   const canvas = document.getElementById("canvas");
   clearCanvas(canvas);
-  const startButton = document.getElementById("reStartButton");
-  startButton.style.display = "none";
+  document.getElementById("reStartButton").classList.add("d-none");
   world = new World(canvas, keyboard);
 }
 

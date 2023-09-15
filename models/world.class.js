@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.run();
+    setStoppableInterval(this.run.bind(this), 200);
   }
 
   /**
@@ -128,17 +128,15 @@ class World {
   }
 
   /**
-   * This function checks for collision
-   * @param {*}  mo = movable object to draw
+   * This function checks for collision, throwing, pause
+   * @param {*}  = no param
    */
   run() {
-    setInterval(() => {
-      this.checkCollision();
-      this.checkThrow();
-      this.checkPause();
-      this.checkActionTime();
-    }, 200);
-  }
+    this.checkCollision();
+    this.checkThrow();
+    this.checkPause();
+    this.checkActionTime();
+}
 
   checkPause() {
     if (this.keyboard.P) {
@@ -261,9 +259,13 @@ class World {
 
   resetGame() {
     //clear Level?
-    this.character.energy = 100;
-    this.character.x = 100;
-    this.level = level1;
+    this.character = new Character();
+    //this.character.energy = 100;
+    //this.character.x = 100;
+    this.statusBarHealth = new StatusbarHealth();
+    this.statusBarBottle = new StatusbarBottle();
+    this.statusBarCoin = new StatusbarCoin();
+    this.level = createLevel();
     this.camera_x = 0;
     isGameOver = false;
     this.enemySquashed = false;
