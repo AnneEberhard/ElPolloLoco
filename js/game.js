@@ -62,17 +62,12 @@ function soundOff() {
   soundIsOn = false;
   document.getElementById("soundOn").classList.add("d-none");
   document.getElementById("soundOff").classList.remove("d-none");
-  console.log('sound off');
-  console.log(soundIsOn);
- 
 }
 
 function soundOn() {
   soundIsOn = true;
   document.getElementById("soundOff").classList.add("d-none");
   document.getElementById("soundOn").classList.remove("d-none");
-  console.log('sound on');
-  console.log(soundIsOn);
 }
 
 /**

@@ -16,27 +16,27 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/idle/I-7.png",
     "img/2_character_pepe/1_idle/idle/I-8.png",
     "img/2_character_pepe/1_idle/idle/I-9.png",
-    "img/2_character_pepe/1_idle/idle/I-10.png"
-  ]
-IMAGES_LONG_IDLE = [
-  "img/2_character_pepe/1_idle/long_idle/I-11.png",
-  "img/2_character_pepe/1_idle/long_idle/I-12.png",
-  "img/2_character_pepe/1_idle/long_idle/I-13.png",
-  "img/2_character_pepe/1_idle/long_idle/I-14.png",
-  "img/2_character_pepe/1_idle/long_idle/I-15.png",
-  "img/2_character_pepe/1_idle/long_idle/I-16.png",
-  "img/2_character_pepe/1_idle/long_idle/I-17.png",
-  "img/2_character_pepe/1_idle/long_idle/I-18.png",
-  "img/2_character_pepe/1_idle/long_idle/I-19.png",
-  "img/2_character_pepe/1_idle/long_idle/I-20.png"
-]
+    "img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+  IMAGES_LONG_IDLE = [
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
     "img/2_character_pepe/2_walk/W-23.png",
     "img/2_character_pepe/2_walk/W-24.png",
     "img/2_character_pepe/2_walk/W-25.png",
-    "img/2_character_pepe/2_walk/W-26.png"
+    "img/2_character_pepe/2_walk/W-26.png",
   ];
   IMAGES_JUMPING = [
     "img/2_character_pepe/3_jump/J-31.png",
@@ -47,13 +47,13 @@ IMAGES_LONG_IDLE = [
     "img/2_character_pepe/3_jump/J-36.png",
     "img/2_character_pepe/3_jump/J-37.png",
     "img/2_character_pepe/3_jump/J-38.png",
-    "img/2_character_pepe/3_jump/J-39.png"
+    "img/2_character_pepe/3_jump/J-39.png",
   ];
   IMAGES_HURT = [
     "img/2_character_pepe/4_hurt/H-41.png",
     "img/2_character_pepe/4_hurt/H-42.png",
-    "img/2_character_pepe/4_hurt/H-43.png"
-  ]
+    "img/2_character_pepe/4_hurt/H-43.png",
+  ];
   IMAGES_DEAD = [
     "img/2_character_pepe/5_dead/D-51.png",
     "img/2_character_pepe/5_dead/D-52.png",
@@ -61,25 +61,27 @@ IMAGES_LONG_IDLE = [
     "img/2_character_pepe/5_dead/D-54.png",
     "img/2_character_pepe/5_dead/D-55.png",
     "img/2_character_pepe/5_dead/D-56.png",
-    "img/2_character_pepe/5_dead/D-57.png"
-  ]
+    "img/2_character_pepe/5_dead/D-57.png",
+  ];
   world;
   coinsCollected = 0;
   bottlesCollected = 0;
 
   offset = {
     top: 100,
-    right:20,
-    bottom:0,
-    left:20
-  }
+    right: 20,
+    bottom: 0,
+    left: 20,
+  };
 
   walking_sound = new Audio("audio/running.mp3");
   jumping_sound = new Audio("audio/jump.mp3");
   hurting_sound = new Audio("audio/ow.mp3");
+  dying_sound = new Audio("audio/dying.mp3");
+  snoring_sound = new Audio("audio/snore.mp3");
 
   constructor() {
-    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png"); 
+    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_LONG_IDLE);
     this.loadImages(this.IMAGES_WALKING);
@@ -92,6 +94,7 @@ IMAGES_LONG_IDLE = [
 
   animate() {
     setStoppableInterval(this.moveCharacter.bind(this), 1000 / 60);
+    setStoppableInterval(this.playCharacterSounds.bind(this), 100);
     setStoppableInterval(this.moveCharacterImages.bind(this), 100);
   }
 
@@ -107,7 +110,8 @@ IMAGES_LONG_IDLE = [
       this.world.camera_x = -this.x + 100;
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
-      }}
+      }
+    }
   }
 
   moveCharacterImages() {
@@ -115,43 +119,57 @@ IMAGES_LONG_IDLE = [
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         world.gameOver(0);
-      }  else if (this.isHurt()) {
+      } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-        this.playSound(this.hurting_sound);
-      }
-      else if (this.isAboveGround()) {
+      } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-        this.playSound(this.jumping_sound);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
-          this.playSound(this.walking_sound);
-        } else if (this.timeCharacterMoved() < 10) {
+        } else if (this.timeCharacterMoved() < 5) {
           this.playAnimation(this.IMAGES_IDLE);
         } else {
           this.playAnimation(this.IMAGES_LONG_IDLE);
         }
-      }}
+      }
+    }
   }
 
-walkLeft() {
-  this.moveLeft();
-  this.otherDirection = true;
-}
+  playCharacterSounds() {
+    if (this.gameIsRunning()) {
+      if (this.isDead()) {
+        this.playSound(this.dying_sound);
+      } else if (this.isHurt()) {
+        this.playSound(this.hurting_sound);
+      } else if (this.isAboveGround()) {
+        this.playSound(this.jumping_sound);
+      } else {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+          this.playSound(this.walking_sound);
+        } else if (this.timeCharacterMoved() > 5) {
+          this.playSound(this.snoring_sound);
+        }
+      }
+    }
+  }
 
-walkRight() {
-  this.moveRight();
-  this.otherDirection = false;
-}
+  walkLeft() {
+    this.moveLeft();
+    this.otherDirection = true;
+  }
 
-jump() {
-  this.speedY = 30;
-}
+  walkRight() {
+    this.moveRight();
+    this.otherDirection = false;
+  }
 
-timeCharacterMoved() {
-  let timepassed = new Date().getTime() - this.actionTime; 
-    timepassed = timepassed / 1000; 
-    return timepassed; 
-}
- 
+  jump() {
+    this.speedY = 30;
+  }
+
+  timeCharacterMoved() {
+    let timepassed = new Date().getTime() - this.actionTime;
+    timepassed = timepassed / 1000;
+    return timepassed;
+  }
 }

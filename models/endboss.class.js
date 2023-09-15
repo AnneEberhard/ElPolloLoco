@@ -48,7 +48,9 @@ class Endboss extends MovableObject {
     "img/4_enemie_boss_chicken/5_dead/G25.png",
     "img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
+  
   chicken_sound = new Audio("audio/bigChicken.mp3");
+  dying_chick_sound = new Audio("audio/dyingChicken.mp3");
 
   constructor() {
     super().loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
@@ -81,6 +83,7 @@ class Endboss extends MovableObject {
 
   endbossDead() {
     this.playAnimation(this.IMAGES_DEAD);
+    this.playSound(this.dying_chick_sound);
     world.gameOver(1);
   }
 

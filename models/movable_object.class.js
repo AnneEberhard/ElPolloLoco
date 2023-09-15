@@ -34,9 +34,10 @@ class MovableObject extends DrawableObject {
 
   playSound(sound) {
     if (soundIsOn) {
-      console.log('sound');
-      sound.play(sound);
-    }
+      sound.play();
+    } else {
+      sound.pause();
+  }
   }
 
   applyGravity() {
@@ -50,14 +51,12 @@ class MovableObject extends DrawableObject {
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
-      //throwable objects don't end falling
       return true;
     } else {
       return this.y < 120;
     }
   }
 
-  //character.isColliding(chicken);
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -79,13 +78,12 @@ class MovableObject extends DrawableObject {
   }
 
   isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; //Diff in milliseconds
-    timepassed = timepassed / 1000; //Diff in seconds
-    return timepassed < 1; //if hit during the last 5s, return is true
+    let timepassed = new Date().getTime() - this.lastHit; 
+    timepassed = timepassed / 1000; 
+    return timepassed < 1; 
   }
 
   isDead() {
-    //returns true if energy = 0
     return this.energy == 0;
   }
 

@@ -125,6 +125,32 @@ function playChicken(sound) {
   }
 }
 
+function moveCharacterImagesSounds() {
+  if (this.gameIsRunning()) {
+    if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+      this.playSound(this.dying_sound);
+      world.gameOver(0);
+    }  else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+      this.playSound(this.hurting_sound);
+    }
+    else if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_JUMPING);
+      this.playSound(this.jumping_sound);
+    } else {
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        this.playAnimation(this.IMAGES_WALKING);
+        this.playSound(this.walking_sound);
+      } else if (this.timeCharacterMoved() < 10) {
+        this.playAnimation(this.IMAGES_IDLE);
+      } else {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+        this.playSound(this.snoring_sound);
+      }
+    }}
+}
+
 /**
  * This function exists fullscreen modus
  * @param {*} = no param
