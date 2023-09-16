@@ -14,6 +14,7 @@ let background_music = new Audio("audio/background_music.mp3");
 function init() {
   intro();
   playBackgroundMusic();
+  addTouch();
 }
 
 
@@ -70,6 +71,26 @@ function soundOn() {
   soundIsOn = true;
   document.getElementById("soundOff").classList.add("d-none");
   document.getElementById("soundOn").classList.remove("d-none");
+}
+
+function toggleSoundMobile() {
+  if(soundIsOn) {
+    soundOffMobile();
+  } else {
+    soundOnMobile();
+  }
+}
+
+function soundOffMobile() {
+  soundIsOn = false;
+  document.getElementById("soundOnMobile").classList.add("d-none");
+  document.getElementById("soundOffMobile").classList.remove("d-none");
+}
+
+function soundOnMobile() {
+  soundIsOn = true;
+  document.getElementById("soundOffMobile").classList.add("d-none");
+  document.getElementById("soundOnMobile").classList.remove("d-none");
 }
 
 

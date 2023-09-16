@@ -184,14 +184,15 @@ a:hover {
 
   #subtextMobileLower {
     display: flex;
-    justify-content: space-between;
+    width:100%;
+    justify-content: space-evenly;
     gap: 8px;
     position: absolute;
     bottom: 0;
   }
   
   .keyIcon {
-    width: 24px;
+    width: 36px;
     border: 1px solid rgb(0, 0, 0);
     margin-bottom:4px;
     background-color: rgb(255, 206, 21);
