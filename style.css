@@ -20,6 +20,7 @@ body {
 h1 {
   font-size: 60px;
   margin-top: 16px;
+  margin-bottom: 0;
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 4px;
 }
@@ -75,7 +76,7 @@ button {
   background-color: black;
   color: rgb(255, 206, 21);
   font-size: 48px;
-  padding: 20px;
+  padding: 10px;
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -87,7 +88,7 @@ button {
 }
 
 #startButton {
-  top: 30%;
+  top: 25%;
 }
 
 #reStartButton {
@@ -202,7 +203,6 @@ a:hover {
     position: absolute;
     left: 50%;
     font-size: 24px;
-    padding: 10px;
     width: 20%;
   }
   
