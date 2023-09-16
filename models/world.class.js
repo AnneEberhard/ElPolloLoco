@@ -15,7 +15,6 @@ class World {
   enemySquashed = false;
   playerWon = false;
 
-  background_music = new Audio("audio/background_music.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -138,15 +137,7 @@ class World {
     this.checkThrow();
     this.checkPause();
     this.checkActionTime();
-    this.playBackgroundMusic();
-  }
-
-  playBackgroundMusic() {
-    if (soundIsOn) {
-      this.background_music.play();
-    } else {
-      this.background_music.pause();
-    }
+    playBackgroundMusic();
   }
 
   checkPause() {

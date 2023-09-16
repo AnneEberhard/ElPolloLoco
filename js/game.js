@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 let introImage;
 let introImageX = 0;
 let soundIsOn = false; 
+let background_music = new Audio("audio/background_music.mp3");
 
 
 /**
@@ -12,6 +13,7 @@ let soundIsOn = false;
  */
 function init() {
   intro();
+  playBackgroundMusic();
 }
 
 
@@ -69,6 +71,18 @@ function soundOn() {
   document.getElementById("soundOff").classList.add("d-none");
   document.getElementById("soundOn").classList.remove("d-none");
 }
+
+
+function playBackgroundMusic() {
+  setInterval( () => {
+    if (soundIsOn) {
+      background_music.play();
+    } else {
+      background_music.pause();
+    }
+  }, 500)
+}
+
 
 /**
  * This function displays the Restart Button

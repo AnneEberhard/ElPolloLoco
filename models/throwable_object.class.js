@@ -28,6 +28,7 @@ class ThrowableObject extends MovableObject {
   throw() {
     this.speedY = 30;
     this.applyGravity();
+    this.playSound(this.throwing_sound);
     setStoppableInterval(this.bottleImages.bind(this), 30);
   }
 
@@ -38,6 +39,5 @@ class ThrowableObject extends MovableObject {
       this.x += 10;
     }
     this.playAnimation(this.IMAGES_ROTATION);
-    //this.playSound(this.throwing_sound);
   }
 }
