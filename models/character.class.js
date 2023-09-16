@@ -92,12 +92,20 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * This function starts animation for the character with a stoppable interval
+   * @param {*}  = no param
+   */
   animate() {
     setStoppableInterval(this.moveCharacter.bind(this), 1000 / 60);
     setStoppableInterval(this.playCharacterSounds.bind(this), 100);
     setStoppableInterval(this.moveCharacterImages.bind(this), 100);
   }
 
+  /**
+   * This function moves character according to input
+   * @param {*}  = no param
+   */
   moveCharacter() {
     if (this.gameIsRunning()) {
       this.walking_sound.pause();
@@ -114,6 +122,10 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * This function plays character images according to input
+   * @param {*}  = no param
+   */
   moveCharacterImages() {
     if (this.gameIsRunning()) {
       if (this.isDead()) {
@@ -135,6 +147,10 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * This function plays character sounds according to input
+   * @param {*}  = no param
+   */
   playCharacterSounds() {
     if (this.gameIsRunning()) {
       if (this.isDead()) {
@@ -153,20 +169,36 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * This function moves character to the right with the according image
+   * @param {*}  = no param
+   */
   walkLeft() {
     this.moveLeft();
     this.otherDirection = true;
   }
 
+  /**
+   * This function moves character to the left with the according flipped image
+   * @param {*}  = no param
+   */
   walkRight() {
     this.moveRight();
     this.otherDirection = false;
   }
 
+  /**
+   * This function lets character jump
+   * @param {*}  = no param
+   */
   jump() {
     this.speedY = 30;
   }
 
+  /**
+   * This function checks how much time has passed between now and last character movement
+   * @param {*}  = no param
+   */
   timeCharacterMoved() {
     let timepassed = new Date().getTime() - this.actionTime;
     timepassed = timepassed / 1000;

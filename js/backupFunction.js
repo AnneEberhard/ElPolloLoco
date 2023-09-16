@@ -1,3 +1,46 @@
+  //  try {
+  //faulty function
+  //  } catch(e) {
+  //console.warn('Error:', e);
+  // console.log('Could not load ', this.variable)
+  //  }
+
+function drawFrame(ctx) {
+  if (
+    this instanceof Character ||
+    this instanceof Chicken ||
+    this instanceof Endboss
+  ) {
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "blue";
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.stroke();
+  }
+  if (
+    this instanceof Character ||
+    this instanceof Chicken ||
+    this instanceof Endboss ||
+    this instanceof Bottle ||
+    this instanceof ThrowableObject ||
+    this instanceof Coin
+  ) {
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "red";
+    let width = this.width - this.offset.right - this.offset.left;
+    let height = this.height - this.offset.bottom - this.offset.top;
+    ctx.rect(
+      this.x + this.offset.left,
+      this.y + this.offset.top,
+      width,
+      height
+    );
+    ctx.stroke();
+  }
+}
+
+
 function checkCollectingAll() {
     let coins = this.level.coins;
     let coinsCollected = this.character.coinsCollected;

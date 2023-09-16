@@ -31,6 +31,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+
 /**
  * This function stops the logic when key no longer pressed down
  * @param {*} = no param
@@ -56,6 +57,11 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
+
+/**
+ * This function adds touch logic to the mobile buttons
+ * @param {*} = no param
+ */
 function addTouch() {
   document.getElementById("right").addEventListener("touchstart", (evt) => {
     evt.preventDefault();

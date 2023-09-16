@@ -48,7 +48,7 @@ class Endboss extends MovableObject {
     "img/4_enemie_boss_chicken/5_dead/G25.png",
     "img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
-  
+
   chicken_sound = new Audio("audio/bigChicken.mp3");
   dying_chick_sound = new Audio("audio/dyingChicken.mp3");
 
@@ -63,10 +63,18 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * This function starts animation for the endboss with a stoppable interval
+   * @param {*}  = no param
+   */
   animate() {
     setStoppableInterval(this.endBossAnimation.bind(this), 200);
   }
 
+  /**
+   * This function assigns animation for the endboss with regard to the status of the endboss
+   * @param {*}  = no param
+   */
   endBossAnimation() {
     if (this.isDead()) {
       this.endbossDead();
@@ -81,28 +89,41 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * This function assigns animation for the endboss when dead
+   * @param {*}  = no param
+   */
   endbossDead() {
     this.playAnimation(this.IMAGES_DEAD);
     this.playSound(this.dying_chick_sound);
     world.gameOver(1);
   }
 
+  /**
+   * This function assigns animation for the endboss when hurt
+   * @param {*}  = no param
+   */
   endbossHurt() {
     this.playAnimation(this.IMAGES_HURT);
   }
 
+  /**
+   * This function assigns animation for the endboss when neither dead nor hurt
+   * @param {*}  = no param
+   */
   endBossActing() {
     if (this.gameIsRunning()) {
       this.playSound(this.chicken_sound);
-    if (this.i < 10 && this.x - this.world.character.x > 200) {
-      this.playAnimation(this.IMAGES_ALERT);
-    } else {
-      if (this.x - this.world.character.x > 80) {
-        this.playAnimation(this.IMAGES_WALKING);
-        this.moveLeft();
+      if (this.i < 10 && this.x - this.world.character.x > 200) {
+        this.playAnimation(this.IMAGES_ALERT);
       } else {
-        this.playAnimation(this.IMAGES_ATTACK);
+        if (this.x - this.world.character.x > 80) {
+          this.playAnimation(this.IMAGES_WALKING);
+          this.moveLeft();
+        } else {
+          this.playAnimation(this.IMAGES_ATTACK);
+        }
       }
     }
-  }}
+  }
 }

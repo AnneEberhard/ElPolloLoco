@@ -1,5 +1,6 @@
 let level1;
 
+
 function createLevel() {
     level1 = new Level(
         [

@@ -25,6 +25,10 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * This function induces bottles being thrown
+   * @param {*}  = no param
+   */
   throw() {
     this.speedY = 30;
     this.applyGravity();
@@ -32,6 +36,10 @@ class ThrowableObject extends MovableObject {
     setStoppableInterval(this.bottleImages.bind(this), 30);
   }
 
+  /**
+   * This function delivers the images for bottles being thrown depending on the direction of the character
+   * @param {*}  = no param
+   */
   bottleImages() {
     if (this.otherDirection) {
       this.x -= 10;

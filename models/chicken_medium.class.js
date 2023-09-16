@@ -10,7 +10,6 @@ class ChickenMedium extends Chicken {
   IMAGE_DEAD = "img/3_enemies_chicken/chicken_normal/2_dead/dead.png";
   chicken_sound = new Audio("audio/chickenShort.mp3");
 
-
   constructor() {
     super().loadImages(this.IMAGES_WALKING);
     this.loadImage(this.IMAGE_DEAD);
@@ -19,10 +18,12 @@ class ChickenMedium extends Chicken {
     this.animate();
   }
 
+  /**
+   * This function starts animation for the medium chickens with a stoppable interval
+   * @param {*}  = no param
+   */
   animate() {
     setStoppableInterval(this.chickenMoving.bind(this), 1000 / 60);
     setStoppableInterval(this.chickenImages.bind(this), 100);
   }
-
-
 }

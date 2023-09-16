@@ -8,6 +8,7 @@ class Endscreen extends DrawableObject {
       height = 480;
       width = 720;
     
+      
       constructor(i) {
         super();
         this.loadImage(this.IMAGES[i]);

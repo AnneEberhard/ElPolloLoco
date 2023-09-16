@@ -12,6 +12,7 @@ function intro() {
   };
 }
 
+
 /**
  * This function draws the intro picture and scales it to the canvas
  * @param {*} = no param
@@ -31,6 +32,7 @@ function drawIntroImage() {
   );
 }
 
+
 /**
  * This function begins start procedure
  * @param {*} = no param
@@ -40,6 +42,7 @@ function start() {
   createLevel();
   animateOut();
 }
+
 
 /**
  * This function slides the intro picture out to the right and at the ends creates the new World
@@ -66,6 +69,7 @@ function animateOut() {
     world = new World(canvas, keyboard);
   }
 }
+
 
 /**
  * This function clears the canvas for the new world

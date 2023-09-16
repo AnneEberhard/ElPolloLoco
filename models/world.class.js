@@ -15,7 +15,6 @@ class World {
   enemySquashed = false;
   playerWon = false;
 
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -47,14 +46,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds); //order is important!
     if (isGameOver) {
-      this.ctx.translate(-this.camera_x, 0);
-      if (this.playerWon) {
-        this.addToMap(this.endScreenWon);
-        showReStartButton();
-      } else {
-        this.addToMap(this.endScreenLost);
-        showReStartButton();
-      }
+      this.drawGameOver();
     } else {
       // -----------Space for fixed objects ---------------
       this.ctx.translate(-this.camera_x, 0); //Back
@@ -73,7 +65,7 @@ class World {
       //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
 
       //draw() will be executed continously according to
-      let self = this; //needed since this doesn't work in the function below
+      let self = this; //needed since this. doesn't work in the function below
       requestAnimationFrame(function () {
         self.draw();
       });
@@ -81,8 +73,23 @@ class World {
   }
 
   /**
+   * This function draws the endscreen
+   * @param {*} = no param
+   */
+  drawGameOver() {
+    this.ctx.translate(-this.camera_x, 0);
+    if (this.playerWon) {
+      this.addToMap(this.endScreenWon);
+      showReStartButton();
+    } else {
+      this.addToMap(this.endScreenLost);
+      showReStartButton();
+    }
+  }
+
+  /**
    * This function adds objects to draw from an array
-   * @param {*}  objects = JSON with the objects to draw
+   * @param {object} object = JSON with the objects to draw
    */
   addObjectsToMap(objects) {
     objects.forEach((object) => {
@@ -92,7 +99,7 @@ class World {
 
   /**
    * This function adds one object to draw
-   * @param {*}  mo = movable object to draw
+   * @param {object} mo = movable object to draw
    */
   addToMap(mo) {
     if (mo.otherDirection) {
@@ -110,7 +117,7 @@ class World {
 
   /**
    * This function flips the image to draw on the y-axis
-   * @param {*}  mo = movable object to draw
+   * @param {object} mo = movable object to draw
    */
   flipImage(mo) {
     this.ctx.save();
@@ -121,7 +128,7 @@ class World {
 
   /**
    * This function reflips the image to draw on the y-axis
-   * @param {*}  mo = movable object to draw
+   * @param {object} mo = movable object to draw
    */
   flipImageBack(mo) {
     this.ctx.restore();
@@ -140,6 +147,10 @@ class World {
     playBackgroundMusic();
   }
 
+  /**
+   * This function checks for pause induced by user
+   * @param {*}  = no param
+   */
   checkPause() {
     if (this.keyboard.P) {
       pause = true;
@@ -148,12 +159,20 @@ class World {
     }
   }
 
+  /**
+   * This function notes the time whenever the character is operated by the user
+   * @param {*}  = no param
+   */
   checkActionTime() {
     if (keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE || keyboard.D) {
       this.character.actionTime = new Date().getTime();
     }
   }
 
+  /**
+   * This function checks for collision
+   * @param {*}  = no param
+   */
   checkCollision() {
     this.checkCollecting(
       this.level.coins,
@@ -170,6 +189,10 @@ class World {
     this.checkCollisionEnemy();
   }
 
+  /**
+   * This function is collecting items
+   * @param {*}  = no param
+   */
   checkCollecting(array, collectedProperty, bar) {
     for (let i = 0; i < array.length; i++) {
       let item = array[i];
@@ -181,6 +204,10 @@ class World {
     }
   }
 
+  /**
+   * This function checks for bottle hitting enemy
+   * @param {*}  = no param
+   */
   checkCollisionBottleEnemy() {
     if (this.throwableObjects.length > 0) {
       let thrownBottle = this.throwableObjects[0];
@@ -195,6 +222,10 @@ class World {
     }
   }
 
+  /**
+   * This function checks for enemy being hit or jumped on
+   * @param {*}  = no param
+   */
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
@@ -210,6 +241,10 @@ class World {
     }
   }
 
+  /**
+   * This function checks for collision of the character with an enemy
+   * @param {*}  = no param
+   */
   checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !this.enemySquashed) {
@@ -219,8 +254,11 @@ class World {
     });
   }
 
+  /**
+   * This function induces throwing bottles on the enemy
+   * @param {*}  = no param
+   */
   checkThrow() {
-    //this.throwableObjects.splice(0,1); only after a certain intervall if needed
     if (this.keyboard.D && this.character.bottlesCollected > 0) {
       let bottle = new ThrowableObject(
         this.character.x + 75,
@@ -236,6 +274,10 @@ class World {
     }
   }
 
+  /**
+   * This function induces bottles splashing on the enemy
+   * @param {*}  = no param
+   */
   splash(x, y) {
     let bottle = new SplashableObject(x + 80, y + 80);
     this.splashableObjects.push(bottle); //this is needed for drawing
@@ -244,6 +286,10 @@ class World {
     }, 1000);
   }
 
+  /**
+   * This function begins end of game logic
+   * @param {*}  = no param
+   */
   gameOver(x) {
     if (x == 1) {
       this.playerWon = true;
@@ -259,6 +305,10 @@ class World {
     }, 2000);
   }
 
+  /**
+   * This function resets the game for new start
+   * @param {*}  = no param
+   */
   resetGame() {
     //clear Level?
     this.character = new Character();
@@ -274,11 +324,4 @@ class World {
     this.playerWon = false;
     pause = false;
   }
-
-  //  try {
-  //faulty function
-  //  } catch(e) {
-  //console.warn('Error:', e);
-  // console.log('Could not load ', this.variable)
-  //  }
 }
