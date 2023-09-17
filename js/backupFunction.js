@@ -227,3 +227,11 @@ function isFullScreen() {
    
     //<img id="enter" src="img/icon/enter_fullscreen.png" onclick="enterFullScreen()">
     //<img id="exit" class="d-none" src="img/icon/exit_fullscreen.png" onclick="endFullscreen()">
+
+    
+    //<div class="subtext">
+    //<div class="hover" onclick="toggleSound()">
+    //  <img id="soundOn" class="d-none" src="img/icon/sound_on.png" />
+    //  <img id="soundOff" src="img/icon/sound_off.png" />
+    //</div>
+  //</div>

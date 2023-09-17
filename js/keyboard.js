@@ -98,13 +98,33 @@ function addTouch() {
   document.getElementById("pause").addEventListener("touchstart", (evt) => {
     evt.preventDefault();
     keyboard.P = true;
+    showMobilePlay();
   });
   document.getElementById("resume").addEventListener("touchstart", (evt) => {
     evt.preventDefault();
     keyboard.P = false;
+    showMobilePause();
   });
   document.getElementById("sound").addEventListener("touchstart", (evt) => {
     evt.preventDefault();
     toggleSoundMobile();
   });
+}
+
+/**
+ * This function displays the pause icon in desk modus
+ * @param {*} = no param
+ */
+function showMobilePause() {
+  document.getElementById("pause").classList.remove("d-none");
+  document.getElementById("resume").classList.add("d-none");
+}
+
+/**
+ * This function displays the play icon in desk modus
+ * @param {*} = no param
+ */
+function showMobilePlay() {
+  document.getElementById("pause").classList.add("d-none");
+  document.getElementById("resume").classList.remove("d-none");
 }
