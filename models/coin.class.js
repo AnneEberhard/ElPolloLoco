@@ -33,6 +33,6 @@ class Coin extends MovableObject {
    * @param {*}  = no param
    */
   coinImages() {
-    this.playAnimation(this.IMAGES_COIN);
+      this.playAnimation(this.IMAGES_COIN);
   }
 }

@@ -25,12 +25,14 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * This function plays images on animation for any movable object on loop
+   * This function plays images on animation for any movable object on loop if not on pause
    * @param {*}  = no param
    */
   playAnimation(images) {
-    let i = this.currentImage % images.length;
-    this.getAnimation(images, i);
+    if (!pause) {
+      let i = this.currentImage % images.length;
+      this.getAnimation(images, i);
+    }
   }
 
   /**
@@ -108,11 +110,13 @@ class MovableObject extends DrawableObject {
    * @param {object} mo = any movable object
    */
   hit(mo) {
-    mo.energy -= 5;
-    if (mo.energy < 0) {
-      mo.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+    if (!pause) {
+      mo.energy -= 5;
+      if (mo.energy < 0) {
+        mo.energy = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+      }
     }
   }
 
