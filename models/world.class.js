@@ -40,11 +40,10 @@ class World {
    * @param {*}  = no param
    */
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //canvas is cleared
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
     this.ctx.translate(this.camera_x, 0);
-    //picture is moved for the value of the variable camera_x on x-axis (to the left) and 0 on y-axis
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.level.clouds); //order is important!
+    this.addObjectsToMap(this.level.clouds); 
     if (isGameOver) {
       this.drawGameOver();
     } else {
@@ -62,10 +61,8 @@ class World {
       this.addObjectsToMap(this.throwableObjects);
       this.addObjectsToMap(this.splashableObjects);
       this.ctx.translate(-this.camera_x, 0);
-      //picture is moved for the negative value of the variable camera_x on x-axis (to the right) and 0 on y-axis
 
-      //draw() will be executed continously according to
-      let self = this; //needed since this. doesn't work in the function below
+      let self = this; 
       requestAnimationFrame(function () {
         self.draw();
       });
@@ -174,16 +171,8 @@ class World {
    * @param {*}  = no param
    */
   checkCollision() {
-    this.checkCollecting(
-      this.level.coins,
-      "coinsCollected",
-      this.statusBarCoin
-    );
-    this.checkCollecting(
-      this.level.bottles,
-      "bottlesCollected",
-      this.statusBarBottle
-    );
+    this.checkCollecting(this.level.coins,"coinsCollected",this.statusBarCoin);
+    this.checkCollecting(this.level.bottles,"bottlesCollected",this.statusBarBottle);
     this.checkEnemySquashed();
     this.checkCollisionBottleEnemy();
     this.checkCollisionEnemy();
@@ -223,7 +212,7 @@ class World {
   }
 
   /**
-   * This function checks for enemy being hit or jumped on
+   * This function checks for chickens being hit or jumped on
    * @param {*}  = no param
    */
   checkEnemySquashed() {
@@ -260,27 +249,22 @@ class World {
    */
   checkThrow() {
     if (this.keyboard.D && this.character.bottlesCollected > 0) {
-      let bottle = new ThrowableObject(
-        this.character.x + 75,
-        this.character.y + 150,
-        this.character.otherDirection
-      );
-      this.throwableObjects.push(bottle); //this is needed for drawing
+      let bottle = new ThrowableObject(this.character.x + 75, this.character.y + 150, this.character.otherDirection);
+      this.throwableObjects.push(bottle); 
       this.character.bottlesCollected -= 20;
       this.statusBarBottle.setPercentage(this.character.bottlesCollected);
-      setTimeout(() => {
-        this.throwableObjects.splice(0, 1);
-      }, 2000);
+      setTimeout(() => {this.throwableObjects.splice(0, 1);}, 2000);
     }
   }
 
   /**
    * This function induces bottles splashing on the enemy
-   * @param {*}  = no param
+   * @param {number} x = coordinate on x-axis for start of splash
+   * @param {number} y = coordinate on y-axis for start of splash
    */
   splash(x, y) {
     let bottle = new SplashableObject(x + 80, y + 80);
-    this.splashableObjects.push(bottle); //this is needed for drawing
+    this.splashableObjects.push(bottle); 
     setTimeout(() => {
       this.splashableObjects.splice(0, 1);
     }, 1000);
@@ -288,7 +272,7 @@ class World {
 
   /**
    * This function begins end of game logic
-   * @param {*}  = no param
+   * @param {number} x = indicator if won or lost
    */
   gameOver(x) {
     if (x == 1) {
@@ -310,10 +294,7 @@ class World {
    * @param {*}  = no param
    */
   resetGame() {
-    //clear Level?
     this.character = new Character();
-    //this.character.energy = 100;
-    //this.character.x = 100;
     this.statusBarHealth = new StatusbarHealth();
     this.statusBarBottle = new StatusbarBottle();
     this.statusBarCoin = new StatusbarCoin();

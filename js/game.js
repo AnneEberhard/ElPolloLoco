@@ -21,22 +21,11 @@ function init() {
  */
 function toggleFullscreen() {
   let element = document.getElementById("fullscreen");
-  let isFullscreen =
-    document.webkitIsFullScreen || document.mozFullScreen || false;
-  element.requestFullScreen =
-    element.requestFullScreen ||
-    element.webkitRequestFullScreen ||
-    element.mozRequestFullScreen ||
-    function () {
-      return false;
-    };
-  document.cancelFullScreen =
-    document.cancelFullScreen ||
-    document.webkitCancelFullScreen ||
-    document.mozCancelFullScreen ||
-    function () {
-      return false;
-    };
+  let isFullscreen =     document.webkitIsFullScreen || document.mozFullScreen || false;
+  element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen ||
+    function () {return false;};
+  document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen ||
+    function () {return false;};
   updateFullscreenIcons();
   isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
 }

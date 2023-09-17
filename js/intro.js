@@ -12,7 +12,6 @@ function intro() {
   };
 }
 
-
 /**
  * This function draws the intro picture and scales it to the canvas
  * @param {*} = no param
@@ -23,15 +22,8 @@ function drawIntroImage() {
   const scale = Math.min(scaleX, scaleY);
   const x = (canvas.width - introImage.width * scale) / 2;
   const y = (canvas.height - introImage.height * scale) / 2;
-  ctx.drawImage(
-    introImage,
-    x,
-    y,
-    introImage.width * scale,
-    introImage.height * scale
-  );
+  ctx.drawImage(introImage, x, y, introImage.width * scale, introImage.height * scale);
 }
-
 
 /**
  * This function begins start procedure
@@ -42,7 +34,6 @@ function start() {
   createLevel();
   animateOut();
 }
-
 
 /**
  * This function slides the intro picture out to the right and at the ends creates the new World
@@ -57,19 +48,12 @@ function animateOut() {
   const x = introImageX;
   const y = (canvas.height - introImage.height * scale) / 2;
   if (x < canvas.width) {
-    ctx.drawImage(
-      introImage,
-      x,
-      y,
-      introImage.width * scale,
-      introImage.height * scale
-    );
+    ctx.drawImage(introImage, x, y, introImage.width * scale, introImage.height * scale);
     requestAnimationFrame(animateOut);
   } else {
     world = new World(canvas, keyboard);
   }
 }
-
 
 /**
  * This function clears the canvas for the new world
@@ -79,4 +63,3 @@ function clearCanvas(canvas) {
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
