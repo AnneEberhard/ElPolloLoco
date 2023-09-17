@@ -3,7 +3,6 @@ let world;
 let keyboard = new Keyboard();
 let introImage;
 let introImageX = 0;
-let soundIsOn = false;
 let background_music = new Audio("audio/background_music.mp3");
 
 /**
