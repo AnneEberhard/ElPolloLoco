@@ -85,7 +85,6 @@ class Endboss extends MovableObject {
       this.i++;
     } else {
       this.i = 0;
-      this.x = 2200;
     }
   }
 

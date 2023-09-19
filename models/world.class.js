@@ -263,7 +263,6 @@ class World {
    * @param {number} y = coordinate on y-axis for start of splash
    */
   splash(x, y) {
-    debugger;
     let bottle = new SplashableObject(x + 80, y + 80);
     this.splashableObjects.push(bottle); 
     setTimeout(() => {
