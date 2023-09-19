@@ -4,7 +4,7 @@ class Character extends MovableObject {
   height = 300;
   width = 150;
   energy = 100;
-  speed = 5;
+  speed = 7;
   actionTime;
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
