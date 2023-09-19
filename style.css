@@ -242,6 +242,7 @@ a:hover {
 }
 
 .headOverlay {
+  margin-top: 100px;
   color: red;
   display: block !important;
 }
@@ -252,6 +253,12 @@ a:hover {
   padding: 32px;
   text-align: center;;
 }
+}
+
+@media only screen and (max-width: 900px) {
+  .headOverlay {
+    font-size: 32px;
+  }
 }
 
 @media only screen and (max-height: 601px) {
