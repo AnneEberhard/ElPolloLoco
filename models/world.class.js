@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    setStoppableInterval(this.run.bind(this), 200);
+    setStoppableInterval(this.run.bind(this), 250);
   }
 
   /**
