@@ -1,4 +1,5 @@
 class Chicken extends MovableObject {
+  //Super class for all chicken medium and small
   height = 80;
   width = 80;
   world;
@@ -20,7 +21,7 @@ class Chicken extends MovableObject {
    */
   chickenImages() {
     if (this.isDead()) {
-      this.img.src = this.IMAGE_DEAD;
+      this.playAnimation(this.IMAGES_DEAD);
       this.chicken_sound.pause();
     } else {
       if (this.gameIsRunning()) {

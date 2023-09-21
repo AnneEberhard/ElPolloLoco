@@ -195,6 +195,18 @@ class Character extends MovableObject {
     this.speedY = 30;
   }
 
+    /**
+   * This function checks if character comes down
+   * @param {*}  = no param
+   */
+  comesDown() {
+    if(this.isAboveGround() && this.speedY <= 0 && this.speedY >= -32) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * This function checks how much time has passed between now and last character movement
    * @param {*}  = no param
