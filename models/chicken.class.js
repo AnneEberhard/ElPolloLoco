@@ -1,9 +1,16 @@
 class Chicken extends MovableObject {
-  //Super class for all chicken medium and small
+  //Super class for all chicken normal and small
   height = 80;
   width = 80;
   world;
   energy = 5;
+
+  offset = {
+    top: 0,
+    right: 20,
+    bottom: 0,
+    left: 20,
+  };
 
   /**
    * This function starts moving left animation when neither dead and game is running

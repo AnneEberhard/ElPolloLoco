@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    setStoppableInterval(this.run.bind(this), 100);
+    setStoppableInterval(this.run.bind(this), 150);
   }
 
   /**
@@ -103,7 +103,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    //mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -218,7 +218,6 @@ class World {
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
-      console.log(this.character.comesDown());
       if (this.character.isColliding(enemy) && this.character.comesDown()) {
         if (enemy instanceof Chicken) {
           enemy.hit(enemy);

@@ -1,4 +1,4 @@
-class ChickenMedium extends Chicken {
+class ChickenNormal extends Chicken {
   height = 80;
   width = 80;
   y = 340;
@@ -23,7 +23,7 @@ class ChickenMedium extends Chicken {
   }
 
   /**
-   * This function starts animation for the medium chickens with a stoppable interval
+   * This function starts animation for the Normal chickens with a stoppable interval
    * @param {*}  = no param
    */
   animate() {

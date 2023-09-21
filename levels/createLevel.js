@@ -12,10 +12,10 @@ function createLevel() {
 
 function createEnemies() {
   return [
-    new ChickenMedium(),
-    new ChickenMedium(),
-    new ChickenMedium(),
-    new ChickenMedium(),
+    new ChickenNormal(),
+    new ChickenNormal(),
+    new ChickenNormal(),
+    new ChickenNormal(),
     new ChickenSmall(),
     new ChickenSmall(),
     new ChickenSmall(),
@@ -37,7 +37,7 @@ function createClouds() {
    */
   function createBackground() {
     const backgrounds = [];
-    for (let i = -1; i <= 2; i++) {
+    for (let i = -1; i <= 3; i++) {
       const prefix = i % 2 === 0 ? "2" : "1";
       backgrounds.push(
         new BackgroundObjects(`img/5_background/layers/air.png`, 719 * i),
