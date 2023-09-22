@@ -3,7 +3,7 @@
 let intervallIDs = [];
 let pause = false; //global variable needed early in the game
 let isGameOver = false; //global variable needed early in the game
-let soundIsOn = false;
+let soundIsOn = false; //global variable needed early in the game
 
 /**
  * This function is the default function for stoppable Intervals used in the game

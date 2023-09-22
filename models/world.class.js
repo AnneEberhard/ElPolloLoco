@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    setStoppableInterval(this.run.bind(this), 150);
+    setStoppableInterval(this.run.bind(this), 80);
   }
 
   /**
@@ -218,6 +218,7 @@ class World {
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
+      console.log(this.character.comesDown());
       if (this.character.isColliding(enemy) && this.character.comesDown()) {
         if (enemy instanceof Chicken) {
           enemy.hit(enemy);
@@ -248,7 +249,7 @@ class World {
    * @param {*}  = no param
    */
   checkThrow() {
-    if (this.keyboard.D && this.character.bottlesCollected > 0) {
+    if (this.keyboard.D && this.character.bottlesCollected > 0 && this.throwableObjects.length == 0) {
       let bottle = new ThrowableObject(this.character.x + 75, this.character.y + 150, this.character.otherDirection);
       this.throwableObjects.push(bottle); 
       this.character.bottlesCollected -= 20;
