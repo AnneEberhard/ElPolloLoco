@@ -218,7 +218,6 @@ class World {
   checkEnemySquashed() {
     for (let i = 0; i < this.level.enemies.length; i++) {
       let enemy = this.level.enemies[i];
-      console.log(this.character.comesDown());
       if (this.character.isColliding(enemy) && this.character.comesDown()) {
         if (enemy instanceof Chicken) {
           enemy.hit(enemy);
