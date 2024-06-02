@@ -6,6 +6,10 @@ body {
   margin: 0;
 }
 
+.info{
+  height: 100vh;
+}
+
 #fullscreen {
   height: 100vh;
   display: flex;
@@ -63,6 +67,7 @@ canvas {
   width: 24px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .padding_2 {
@@ -122,7 +127,11 @@ a:hover {
   flex-direction: column;
   padding: 32px;
   margin: 16px;
+  background-image: url("img/desert-5112222_1280.png");
+  background-size: contain;
+  background-repeat: repeat;
 }
+
 .returnToIndex {
   display: flex;
   justify-content: center;
@@ -163,6 +172,13 @@ a:hover {
 /*--------------Smartphones---------------*/
 
 @media only screen and (max-width: 900px) {
+  .info{
+    background-color: rgb(247,194,116);
+    padding: 8px;
+    text-align: center;
+    height: fit-content;
+  }
+
   canvas {
     width: 100%;
   }
@@ -302,6 +318,7 @@ a:hover {
     border: 1px solid rgb(0, 0, 0);
     margin-bottom: 4px;
     background-color: rgb(255, 206, 21);
+    cursor: pointer;
   }
 
   button {
